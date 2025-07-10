@@ -1,9 +1,10 @@
-import photo1 from "../assets/images/photo1.jpg";
+import photo1 from "../../assets/images/photo1.jpg";
+import FiturWebsite from "./FiturWebsite";
 import "./LandingPage.css";
 function LandingPage() {
   return (
     <>
-      <div className="relative" id="heroSectionId">
+      <div className="relative bg-gray-100" id="heroSectionId">
         {/* <div className="custom-shape-divider-top-1752142863 hidden md:block">
           <svg
             data-name="Layer 1"
@@ -70,25 +71,7 @@ function LandingPage() {
           </svg>
         </div>
       </div>
-      <div className="relative" id="heroSectionId">
-        <div className="bg-white px-4 md:px-6 py-12">
-          <div className="container mx-auto max-w-7xl">
-            <div className="flex flex-col md:flex-row items-center gap-10 h-full">
-              <div className="md:w-1/2 w-full">
-                <img src={photo1} alt="photo1" className="rounded-xl" />
-              </div>
-              <div className=" text-black w-full md:w-1/2">
-                <h1 className="text-4xl font-semibold">Go Career</h1>
-                <p className="text-base text-justify mt-2">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s,
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FiturWebsite />
     </>
   );
 }
