@@ -28,8 +28,8 @@ function LandingPage() {
             ></path>
           </svg>
         </div> */}
-        <div className="bg-[#4298B4] px-4 md:px-6 py-12">
-          <div className="container mx-auto max-w-7xl">
+        <div className="bg-[#4298B4] ">
+          <div className="container mx-auto max-w-7xl px-4 md:px-6 py-12">
             <div className="flex flex-col md:flex-row items-center gap-10 h-full">
               <div className="md:w-1/2 w-full">
                 <img src={photo1} alt="photo1" className="rounded-xl" />

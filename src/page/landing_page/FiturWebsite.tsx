@@ -34,8 +34,8 @@ const fiturList = [
 
 function FiturWebsite() {
   return (
-    <div className="bg-gray-100 px-4 md:px-6 py-12">
-      <div className="container mx-auto max-w-7xl">
+    <div className="bg-gray-100 ">
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 py-12">
         <h1 className="text-center text-4xl font-semibold">
           <span className="border-b-4 border-[#4298B4]">Fitur Go Career</span>
         </h1>
