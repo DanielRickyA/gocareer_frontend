@@ -50,7 +50,9 @@ function FiturWebsite() {
                 <Icon size={32} />
                 <p className="text-2xl font-semibold my-2">{fitur.title}</p>
                 <p className="text-justify">{fitur.description}</p>
-                <Button className="w-full mt-2">{fitur.buttonText}</Button>
+                <Button className="w-full mt-2 bg-[#E4AE3A]">
+                  {fitur.buttonText}
+                </Button>
               </div>
             );
           })}
