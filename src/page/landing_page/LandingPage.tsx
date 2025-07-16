@@ -1,4 +1,5 @@
-import photo1 from "../../assets/images/photo1.jpg";
+// import photo1 from "../../assets/images/photo1.jpg";
+import photo1 from "../../assets/images/Percobaan 5.png";
 import FiturWebsite from "./FiturWebsite";
 import "./LandingPage.css";
 function LandingPage() {

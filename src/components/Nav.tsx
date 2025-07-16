@@ -32,7 +32,7 @@ function Nav() {
     <header
       className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out
         ${
-          scrolled
+        scrolled
             ? "bg-white border-b dark:border-gray-800 dark:bg-gray-950 text-black/70"
             : "bg-[#4298B4] text-white"
         }
