@@ -30,17 +30,15 @@ function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out
-        ${
-        scrolled
-            ? "bg-white border-b dark:border-gray-800 dark:bg-gray-950 text-black/70"
-            : "bg-[#4298B4] text-white"
-        }
+      className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black
+        ${scrolled ? "dark:border-gray-800 dark:bg-gray-950" : ""}
         `}
     >
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="font-bold">Go Career</span>
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
+        <Link to="/home" className="flex items-center gap-2">
+          <p className="font-bold text-2xl">
+            Go <span className="text-primary">Career</span>
+          </p>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">

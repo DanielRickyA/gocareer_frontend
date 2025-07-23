@@ -5,7 +5,7 @@ function Layout() {
   return (
     <>
       <Nav />
-      <main className="">
+      <main className="container mx-auto max-w-6xl px-4 md:px-6 py-12">
         <Outlet />
       </main>
     </>
