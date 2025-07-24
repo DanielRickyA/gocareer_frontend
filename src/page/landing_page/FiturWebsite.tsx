@@ -1,37 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ClipboardList } from "lucide-react";
 
 const fiturList = [
   {
     title: "Tes Minat",
     description:
       "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
-    icon: ClipboardList,
+    icon: "/icon1.png",
   },
   {
     title: "Minat Bakat",
     description:
       "Pahami berbagai bidang minat dan temukan yang paling menggambarkan dirimu. Fokus pada yang paling cocok, bukan yang paling umum.",
-    icon: ClipboardList,
+    icon: "/icon2.png",
   },
   {
     title: "Jurusan",
     description:
       "Tonton video jurusan dari SMA & SMK untuk tahu lebih jauh sebelum menentukan arah pendidikanmu.",
-    icon: ClipboardList,
+    icon: "/icon3.png",
   },
   {
     title: "Dukungan",
     description:
       "Peran orang tua & nilai akademik punya pengaruh besar. Dapatkan wawasan penting untuk jadi versi terbaik dari dirimu.",
-    icon: ClipboardList,
+    icon: "/icon4.png",
   },
   {
     title: "Sekolah",
     description:
       "Jelajahi daftar sekolah SMA & SMK se-DIY. Pilih kabupaten, lihat pilihan, dan temukan sekolah impianmu.",
-    icon: ClipboardList,
+    icon: "/icon5.png",
   },
 ];
 
@@ -48,7 +47,6 @@ function FiturWebsite() {
         </p>
         <div className="flex flex-wrap justify-center w-full mt-10">
           {fiturList.map((fitur, index) => {
-            const Icon = fitur.icon;
             return (
               <div
                 key={index}
@@ -56,7 +54,7 @@ function FiturWebsite() {
               >
                 <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20">
                   <CardContent className="flex flex-col h-full">
-                    <Icon size={32} />
+                    <img src={fitur.icon} className="w-16" />
                     <p className="text-2xl font-semibold my-2">{fitur.title}</p>
                     <div className="flex-1 w-full">
                       <p className="text-description">{fitur.description}</p>
