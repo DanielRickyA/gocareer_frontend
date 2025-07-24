@@ -25,7 +25,13 @@ function SplashScreen() {
     return () => clearInterval(interval);
   }, [navigate]);
   return (
-    <div className="min-h-screen h-full w-full bg-secondary flex flex-row items-center justify-center">
+    <div className="h-screen w-full bg-secondary flex flex-row items-center justify-center relative">
+      <div className="absolute top-[10%] right-0 h-[15%] w-[30%] md:w-[15%]">
+        <img src="/assets1.png" alt="" className="w-full" />
+      </div>
+      <div className="absolute bottom-[25%] left-0 h-[15%] w-[30%] md:w-[15%]">
+        <img src="/assets2.png" alt="" className="w-full" />
+      </div>
       <div className="w-[400px]">
         <p className="text-5xl font-semibold text-center">
           Go <span className="text-primary">Career</span>

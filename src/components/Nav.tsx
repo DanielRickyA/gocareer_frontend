@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   const sections = [
-    { id: "/", label: "Beranda" },
-    { id: "/keranjang", label: "Tes Minat" },
-    { id: "/pembelian", label: "Jurusan" },
-    { id: "/daftar-preorder", label: "Dukungan" },
-    { id: "/kontak", label: "Sekolah" },
+    { id: "/home", label: "Beranda", location: "/home" },
+    { id: "/tes-minat", label: "Tes Minat", location: "/tes-minat" },
+    { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
+    { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
+    { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 100;
+      const isScrolled = window.scrollY > 10;
       console.log(window.scrollY > 20);
       setScrolled(isScrolled);
     };
@@ -31,12 +32,16 @@ function Nav() {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black
-        ${scrolled ? "dark:border-gray-800 dark:bg-gray-950" : ""}
+        ${
+          scrolled
+            ? "dark:border-gray-800 dark:bg-gray-950 border-[0.5px] border-b-black/10 shadow-sm"
+            : ""
+        }
         `}
     >
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <Link to="/home" className="flex items-center gap-2">
-          <p className="font-bold text-2xl">
+          <p className="font-bold text-3xl">
             Go <span className="text-primary">Career</span>
           </p>
         </Link>
@@ -46,7 +51,9 @@ function Nav() {
             <Link
               key={section.id}
               to={`${section.id}`}
-              className={` border-b-2 border-transparent hover:scale-110 hover:border-sky-300 transition ease-in-out hover:-translate-y-1`}
+              className={`border-b-[3px] text-base border-transparent hover:border-primary/50 transition ease-in-out ${
+                location.pathname == section.location && "border-b-primary"
+              }`}
             >
               {section.label}
             </Link>

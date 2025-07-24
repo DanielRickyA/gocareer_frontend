@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 function LandingPage() {
   return (
     <>
-      <div className="relative " id="heroSectionId">
-        <Card className="bg-secondary p-0 px-10 pt-2 z-10 shadow-none border-0">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4">
+        <Card className="bg-secondary p-0 px-10 z-10 shadow-none border-0">
           <CardContent className="p-0">
             <div className="flex flex-col md:flex-row items-start gap-10 h-full">
               <div className="text-black w-full md:w-[80%] pt-8 pb-4">
@@ -18,7 +18,7 @@ function LandingPage() {
                   </span>{" "}
                   di sini!
                 </h1>
-                <p className="text-base text-justify mt-4 text-[#717A80]">
+                <p className="text-base text-justify mt-4 text-description">
                   Go-Career membantumu memahami potensi diri, menemukan jurusan
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.

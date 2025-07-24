@@ -1,60 +1,81 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ClipboardList } from "lucide-react";
 
 const fiturList = [
   {
     title: "Tes Minat",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    buttonText: "Coba Tes",
+      "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
     icon: ClipboardList,
   },
   {
-    title: "Tes Bakat",
+    title: "Minat Bakat",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    buttonText: "Coba Tes",
+      "Pahami berbagai bidang minat dan temukan yang paling menggambarkan dirimu. Fokus pada yang paling cocok, bukan yang paling umum.",
     icon: ClipboardList,
   },
   {
-    title: "Tes Kepribadian",
+    title: "Jurusan",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    buttonText: "Coba Tes",
+      "Tonton video jurusan dari SMA & SMK untuk tahu lebih jauh sebelum menentukan arah pendidikanmu.",
     icon: ClipboardList,
   },
   {
-    title: "Rekomendasi Karir",
+    title: "Dukungan",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    buttonText: "Lihat Karir",
+      "Peran orang tua & nilai akademik punya pengaruh besar. Dapatkan wawasan penting untuk jadi versi terbaik dari dirimu.",
+    icon: ClipboardList,
+  },
+  {
+    title: "Sekolah",
+    description:
+      "Jelajahi daftar sekolah SMA & SMK se-DIY. Pilih kabupaten, lihat pilihan, dan temukan sekolah impianmu.",
     icon: ClipboardList,
   },
 ];
 
 function FiturWebsite() {
   return (
-    <div className="mt-12">
-      <h1 className="text-center text-4xl font-semibold">
-        <span className="border-b-4 border-[#4298B4]">Fitur Go Career</span>
-      </h1>
-      <div className="flex flex-wrap justify-center w-full mt-10">
-        {fiturList.map((fitur, index) => {
-          const Icon = fitur.icon;
-          return (
-            <div
-              key={index}
-              className="flex flex-col w-full md:w-1/2 lg:w-1/4 items-center px-4 mb-8"
-            >
-              <Icon size={32} />
-              <p className="text-2xl font-semibold my-2">{fitur.title}</p>
-              <p className="text-justify">{fitur.description}</p>
-              <Button className="w-full mt-2 bg-[#E4AE3A]">
-                {fitur.buttonText}
-              </Button>
-            </div>
-          );
-        })}
+    <div className="relative">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4 pt-12 z-10">
+        <h1 className="text-center text-3xl font-semibold">
+          Rancang <span className="text-primary">Masa Depanmu</span>
+        </h1>
+        <p className="mt-4 text-description text-center w-full md:max-w-[45%] mx-auto">
+          Bantu kamu memilih jurusan dengan percaya diri melalui tes minat,
+          video edukatif, dan dukungan lengkap.
+        </p>
+        <div className="flex flex-wrap justify-center w-full mt-10">
+          {fiturList.map((fitur, index) => {
+            const Icon = fitur.icon;
+            return (
+              <div
+                key={index}
+                className="flex flex-col items-center mb-8 px-4 sm:w-1/2 lg:w-1/3 sm:max-w-xs"
+              >
+                <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20">
+                  <CardContent className="flex flex-col h-full">
+                    <Icon size={32} />
+                    <p className="text-2xl font-semibold my-2">{fitur.title}</p>
+                    <div className="flex-1 w-full">
+                      <p className="text-description">{fitur.description}</p>
+                    </div>
+                    <Button className="mt-6 rounded-full w-fit px-6 py-2">
+                      Lihat Detail
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="absolute top-[10%] right-0 h-[15%] w-[30%] md:w-[15%] z-0">
+        <img src="/assets1.png" alt="" className="w-full" />
+      </div>
+      <div className="absolute bottom-[0%] md:bottom-[40%] left-0 h-[15%] w-[30%] md:w-[15%] z-0">
+        <img src="/assets2.png" alt="" className="w-full" />
       </div>
     </div>
   );
