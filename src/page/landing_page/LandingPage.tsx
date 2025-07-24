@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 function LandingPage() {
   return (
     <>
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4">
+      <div className="container mx-auto max-w-6xl px-4 md:px-0 py-4">
         <Card className="bg-secondary p-0 px-10 z-10 shadow-none border-0">
           <CardContent className="p-0">
             <div className="flex flex-col md:flex-row items-start gap-10 h-full">

@@ -39,7 +39,7 @@ function Nav() {
         }
         `}
     >
-      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-0">
         <Link to="/home" className="flex items-center gap-2">
           <p className="font-bold text-3xl">
             Go <span className="text-primary">Career</span>
@@ -71,12 +71,15 @@ function Nav() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="md:hidden">
-              <div className="grid gap-4 p-4">
+              <div className="grid gap-4 p-4 mt-4">
                 {sections.map((section) => (
                   <Link
                     key={section.id}
                     to={`#${section.id}`}
-                    className="text-muted-foreground border-b-2 border-transparent hover:border-orange-500 transition ease-in-out"
+                    className={`text-muted-foreground border-b-3 border-transparent hover:border-primary/70 hover:w-full transition ease-in-out ${
+                      location.pathname == section.location &&
+                      "border-b-primary w-fit"
+                    }`}
                   >
                     {section.label}
                   </Link>

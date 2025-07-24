@@ -37,11 +37,11 @@ const fiturList = [
 function FiturWebsite() {
   return (
     <div className="relative">
-      <div className="container mx-auto max-w-6xl px-4 md:px-6 py-4 pt-12 z-10">
+      <div className="container mx-auto max-w-6xl px-4 md:px-0 py-4 pt-10 z-10">
         <h1 className="text-center text-3xl font-semibold">
-          Rancang <span className="text-primary">Masa Depanmu</span>
+          Rancang <span className="text-primary  z-20">Masa Depanmu</span>
         </h1>
-        <p className="mt-4 text-description text-center w-full md:max-w-[45%] mx-auto">
+        <p className="mt-4 text-description text-center w-full md:max-w-[45%] mx-auto  z-20">
           Bantu kamu memilih jurusan dengan percaya diri melalui tes minat,
           video edukatif, dan dukungan lengkap.
         </p>
@@ -72,7 +72,7 @@ function FiturWebsite() {
       <div className="absolute top-[10%] right-0 h-[15%] w-[30%] md:w-[10%] z-0">
         <img src="/assets1.png" alt="" className="w-full" />
       </div>
-      <div className="absolute bottom-[0%] md:bottom-[40%] left-0 h-[15%] w-[30%] md:w-[15%] z-0">
+      <div className="absolute bottom-[5%] md:bottom-[40%] left-0 h-[15%] w-[30%] md:w-[15%] z-0">
         <img src="/assets2.png" alt="" className="w-full" />
       </div>
     </div>

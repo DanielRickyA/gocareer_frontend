@@ -25,7 +25,7 @@ function SplashScreen() {
     return () => clearInterval(interval);
   }, [navigate]);
   return (
-    <div className="h-screen w-full bg-secondary flex flex-row items-center justify-center relative">
+    <div className="h-screen w-full  flex flex-row items-center justify-center relative">
       <div className="absolute top-[10%] right-0 h-[15%] w-[30%] md:w-[15%]">
         <img src="/assets1.png" alt="" className="w-full" />
       </div>
