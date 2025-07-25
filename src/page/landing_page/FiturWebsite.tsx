@@ -45,12 +45,12 @@ function FiturWebsite() {
           Bantu kamu memilih jurusan dengan percaya diri melalui tes minat,
           video edukatif, dan dukungan lengkap.
         </p>
-        <div className="flex flex-wrap justify-center w-full mt-10">
+        <div className="flex flex-wrap justify-center w-full mt-8">
           {fiturList.map((fitur, index) => {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center mb-8 px-4 sm:w-1/2 lg:w-1/3 sm:max-w-xs"
+                className="flex flex-col items-center mb-6 md:mb-8 px-0 md:px-4 sm:w-1/2 lg:w-1/3 sm:max-w-xs"
               >
                 <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20">
                   <CardContent className="flex flex-col h-full">

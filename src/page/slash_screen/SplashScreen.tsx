@@ -36,7 +36,9 @@ function SplashScreen() {
         <p className="text-5xl font-semibold text-center">
           Go <span className="text-primary">Career</span>
         </p>
-        <Progress value={progress} className="mt-5 w-full" />
+        <div className="w-full px-8 md:px-0">
+          <Progress value={progress} className="mt-5 w-full" />
+        </div>
       </div>
     </div>
   );
