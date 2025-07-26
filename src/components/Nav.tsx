@@ -33,7 +33,7 @@ function Nav() {
     <header
       className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black
         ${
-          scrolled
+          scrolled || location.pathname != "/home"
             ? "dark:border-gray-800 dark:bg-gray-950 border-[0.5px] border-b-black/10 shadow-sm"
             : ""
         }
@@ -75,7 +75,7 @@ function Nav() {
                 {sections.map((section) => (
                   <Link
                     key={section.id}
-                    to={`#${section.id}`}
+                    to={`${section.id}`}
                     className={`text-muted-foreground border-b-3 border-transparent hover:border-primary/70 hover:w-full transition ease-in-out ${
                       location.pathname == section.location &&
                       "border-b-primary w-fit"
