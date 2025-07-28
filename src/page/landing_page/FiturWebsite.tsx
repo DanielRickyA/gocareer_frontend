@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const fiturList = [
   {
@@ -7,34 +8,40 @@ const fiturList = [
     description:
       "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
     icon: "/icon1.png",
+    link: "/tes-minat",
   },
   {
     title: "Minat Bakat",
     description:
       "Pahami berbagai bidang minat dan temukan yang paling menggambarkan dirimu. Fokus pada yang paling cocok, bukan yang paling umum.",
     icon: "/icon2.png",
+    link: "/minat-bakat",
   },
   {
     title: "Jurusan",
     description:
       "Tonton video jurusan dari SMA & SMK untuk tahu lebih jauh sebelum menentukan arah pendidikanmu.",
     icon: "/icon3.png",
+    link: "/jurusan",
   },
   {
     title: "Dukungan",
     description:
       "Peran orang tua & nilai akademik punya pengaruh besar. Dapatkan wawasan penting untuk jadi versi terbaik dari dirimu.",
     icon: "/icon4.png",
+    link: "/dukungan",
   },
   {
     title: "Sekolah",
     description:
       "Jelajahi daftar sekolah SMA & SMK se-DIY. Pilih kabupaten, lihat pilihan, dan temukan sekolah impianmu.",
     icon: "/icon5.png",
+    link: "/sekolah",
   },
 ];
 
 function FiturWebsite() {
+  const navigate = useNavigate();
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-0 py-4 pt-10 z-10">
@@ -59,7 +66,10 @@ function FiturWebsite() {
                     <div className="flex-1 w-full">
                       <p className="text-description">{fitur.description}</p>
                     </div>
-                    <Button className="mt-6 rounded-full w-fit px-6 py-2">
+                    <Button
+                      className="mt-6 rounded-full w-fit px-6 py-2"
+                      onClick={() => navigate(fitur.link)}
+                    >
                       Lihat Detail
                     </Button>
                   </CardContent>

@@ -10,6 +10,7 @@ function Nav() {
   const sections = [
     { id: "/home", label: "Beranda", location: "/home" },
     { id: "/tes-minat", label: "Tes Minat", location: "/tes-minat" },
+    { id: "/minat-bakat", label: "Minat Bakat", location: "/minat-bakat" },
     { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
     { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
     { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
@@ -39,7 +40,7 @@ function Nav() {
         }
         `}
     >
-      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-0">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/home" className="flex items-center gap-2">
           <p className="font-bold text-3xl">
             Go <span className="text-primary">Career</span>
@@ -51,7 +52,7 @@ function Nav() {
             <Link
               key={section.id}
               to={`${section.id}`}
-              className={`border-b-[3px] text-base border-transparent hover:border-primary/50 transition ease-in-out ${
+              className={`border-b-[3px] text-base border-transparent hover:border-primary transition ease-in-out ${
                 location.pathname == section.location && "border-b-primary"
               }`}
             >
