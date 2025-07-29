@@ -8,11 +8,11 @@ function LandingPage() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="container mx-auto max-w-6xl px-4 py-4">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-4">
         <Card className="bg-secondary p-0 px-6 md:px-10 z-10 shadow-none border-0">
           <CardContent className="p-0">
-            <div className="flex flex-col lg:flex-row items-start gap-10 h-full">
-              <div className="text-black w-full lg:w-[80%] pt-8 pb-4">
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-10 h-full">
+              <div className="text-black w-full lg:w-[80%] pt-8 pb-4 text-left md:text-center lg:text-left max-w-full md:max-w-2xl lg:max-w-full mx-auto ">
                 <h1 className="text-3xl md:text-4xl font-semibold ">
                   Temukan{" "}
                   <span className="text-primary">
@@ -20,7 +20,7 @@ function LandingPage() {
                   </span>{" "}
                   di sini!
                 </h1>
-                <p className="text-sm md:text-base text-justify mt-4 text-description">
+                <p className="text-sm md:text-base mt-4 text-description text-justify md:text-center lg:text-justify">
                   Go-Career membantumu memahami potensi diri, menemukan jurusan
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
@@ -33,8 +33,8 @@ function LandingPage() {
                   Tes Minat Sekarang
                 </Button>
               </div>
-              <div className="h-full">
-                <img src="/Foto2.png" alt="photo1" className="" />
+              <div className="h-full ">
+                <img src="/Foto2.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
           </CardContent>

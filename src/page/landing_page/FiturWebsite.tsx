@@ -44,7 +44,7 @@ function FiturWebsite() {
   const navigate = useNavigate();
   return (
     <div className="relative">
-      <div className="container mx-auto max-w-6xl px-4 md:px-0 py-4 pt-10 z-10">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-4 pt-10 z-10">
         <h1 className="text-center text-3xl font-semibold">
           Rancang <span className="text-primary  z-20">Masa Depanmu</span>
         </h1>

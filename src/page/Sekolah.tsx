@@ -1,7 +1,7 @@
 function Sekolah() {
   return (
     <div className="relative">
-      <div className="container mx-auto max-w-6xl px-4 py-12">
+      <div className="container mx-auto max-w-6xl 8 py-12">
         <div className="flex gap-6 items-center justify-start">
           <img src="/icon5.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">Sekolah</h1>
