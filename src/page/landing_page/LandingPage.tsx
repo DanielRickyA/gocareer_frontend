@@ -1,11 +1,11 @@
 // import photo1 from "../../assets/images/photo1.jpg";
 import { Card, CardContent } from "@/components/ui/card";
 import FiturWebsite from "./FiturWebsite";
-import "./LandingPage.css";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+// import "./LandingPage.css";
+// import { Button } from "@/components/ui/button";
+// import { useNavigate } from "react-router-dom";
 function LandingPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <>
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-4">
@@ -25,13 +25,13 @@ function LandingPage() {
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
                 </p>
-                <Button
-                  className="bg-primary rounded-full mt-4 w-full md:w-auto  md:text-[16px] font-medium"
+                {/* <Button
+                  className="bg-primary rounded-full mt-4 w-full md:w-auto  md:text-[16px] font-medium cursor-pointer"
                   size={"lg"}
                   onClick={() => navigate("/tes-minat")}
                 >
                   Tes Minat Sekarang
-                </Button>
+                </Button> */}
               </div>
               <div className="h-full ">
                 <img src="/Foto2.png" alt="photo1" className="h-full w-full" />

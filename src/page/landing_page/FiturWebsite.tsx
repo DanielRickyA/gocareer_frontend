@@ -4,13 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const fiturList = [
   {
-    title: "Tes Minat",
-    description:
-      "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
-    icon: "/icon1.png",
-    link: "/tes-minat",
-  },
-  {
     title: "Minat Bakat",
     description:
       "Pahami berbagai bidang minat dan temukan yang paling menggambarkan dirimu. Fokus pada yang paling cocok, bukan yang paling umum.",
@@ -37,6 +30,13 @@ const fiturList = [
       "Jelajahi daftar sekolah SMA & SMK se-DIY. Pilih kabupaten, lihat pilihan, dan temukan sekolah impianmu.",
     icon: "/icon5.png",
     link: "/sekolah",
+  },
+  {
+    title: "Tes Minat",
+    description:
+      "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
+    icon: "/icon1.png",
+    link: "/tes-minat",
   },
 ];
 
@@ -67,7 +67,7 @@ function FiturWebsite() {
                       <p className="text-description">{fitur.description}</p>
                     </div>
                     <Button
-                      className="mt-6 rounded-full w-fit px-6 py-2"
+                      className="mt-6 rounded-full w-fit px-6 py-2 cursor-pointer"
                       onClick={() => navigate(fitur.link)}
                     >
                       Lihat Detail
