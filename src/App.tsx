@@ -4,9 +4,10 @@ import Layout from "./components/Layout";
 import SplashScreen from "./page/slash_screen/SplashScreen";
 import TesMinat from "./page/TesMinat";
 import MinatBakat from "./page/MinatBakat";
-import Jurusan from "./page/Jurusan";
+import Jurusan from "./page/jurusan/Jurusan";
 import Dukungan from "./page/Dukungan";
 import Sekolah from "./page/Sekolah";
+import JurusanList from "./page/jurusan/JurusanList";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="tes-minat" element={<TesMinat />} />
             <Route path="minat-bakat" element={<MinatBakat />} />
             <Route path="jurusan" element={<Jurusan />} />
+            <Route path="jurusan/:sekolah" element={<JurusanList />} />
             <Route path="dukungan" element={<Dukungan />} />
             <Route path="sekolah" element={<Sekolah />} />
           </Route>

@@ -1,4 +1,10 @@
 import LazyYoutube from "@/components/LazyYoutube";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CircleArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export interface VideoItem {
   title: string;
@@ -317,102 +323,215 @@ const smkList = [
       },
     ],
   },
+  {
+    subject: "2",
+    videos: [
+      {
+        title: "Merancang Pengalamatan Jaringan",
+        url: "https://www.youtube.com/embed/QZPYoozLzvY",
+      },
+      {
+        title: "Menyiapkan Kabel Jaringan",
+        url: "https://www.youtube.com/embed/BzQCu8X5CA4",
+      },
+      {
+        title: "Merakit Komputer",
+        url: "https://www.youtube.com/embed/MgxRiLe_7kY",
+      },
+      {
+        title: "Mengkonfigurasi VLAN",
+        url: "https://www.youtube.com/embed/xMvHQD1Bxpk",
+      },
+      {
+        title: "Mengkonfigurasi Switch Pada Jaringan",
+        url: "https://www.youtube.com/embed/STzP7NLbM9s",
+      },
+      {
+        title: "Mengkonfigurasi Sistem Keamanan Jaringan",
+        url: "https://www.youtube.com/embed/Yfa28sTxmM0",
+      },
+      {
+        title: "Mengkomfigurasi Routing Statis",
+        url: "https://www.youtube.com/embed/OKXGIL5g9y8",
+      },
+      {
+        title: "Mengkonfigurasi Roouting Dinamis",
+        url: "https://www.youtube.com/embed/Yd8shJ3l36c",
+      },
+      {
+        title: "Mengkonvigurasi DNS Server",
+        url: "https://www.youtube.com/embed/ZuQ7dPppqGI",
+      },
+      {
+        title: "Mengkonfigurasi DHCP Server",
+        url: "https://www.youtube.com/embed/nOgEFQKKiMU",
+      },
+      {
+        title: "Menginstalasi Sistem Operasi",
+        url: "https://www.youtube.com/embed/xB7OF_DuEhI",
+      },
+      {
+        title: "Menginstalasi Jaringan Local (LAN)",
+        url: "https://www.youtube.com/embed/83l7zEQ0IL4",
+      },
+      {
+        title: "Menginstalasi Software Aplikasi",
+        url: "https://www.youtube.com/embed/5wXD-51u7bc",
+      },
+      {
+        title: "Mendesain Topologi Jaringan",
+        url: "https://www.youtube.com/embed/OvLT6yv_OOM",
+      },
+      {
+        title: "Membangun Jaringan Nirkabel",
+        url: "https://www.youtube.com/embed/pGeNwBjqaF8",
+      },
+      {
+        title: "Memasang Kabel Jaringan",
+        url: "https://www.youtube.com/embed/d4o5kXhpYPQ",
+      },
+      {
+        title: "Melakukan Setting BIOS",
+        url: "https://www.youtube.com/embed/e3NXG4WTp1w",
+      },
+    ],
+  },
 ];
 
-function Jurusan() {
+function JurusanList() {
+  const { sekolah } = useParams();
+  const navigate = useNavigate();
+  const isSMK = sekolah === "smk";
+
+  const [visibleCounts, setVisibleCounts] = useState<{ [key: string]: number }>(
+    {}
+  );
+
+  useEffect(() => {
+    if (isSMK) {
+      const initialCounts = Object.fromEntries(
+        smkList.map((jurusan) => [jurusan.subject, 3])
+      );
+      setVisibleCounts(initialCounts);
+    }
+  }, [isSMK]);
+
+  const handleShowMore = (subject: string, totalVideos: number) => {
+    setVisibleCounts((prev) => {
+      const nextCount = (prev[subject] ?? 3) + 3;
+      return {
+        ...prev,
+        [subject]: nextCount > totalVideos ? totalVideos : nextCount,
+      };
+    });
+  };
   return (
-    <div className="">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12">
-        <div className="flex gap-6 items-center justify-start">
-          <img src="/icon3.png" alt="" />
-          <h1 className="text-4xl md:text-5xl text-left font-bold">Jurusan</h1>
-        </div>
-        <p className="text-base md:text-xl mt-4 text-description text-justify">
-          Tonton video jurusan dari SMA & SMK untuk tahu lebih jauh sebelum
-          menentukan arah pendidikanmu.
-        </p>
-
-        <p className="font-semibold text-left text-3xl mt-8">SMA/MA</p>
-        <p className="text-description mb-4">
-          Berikut adalah Jingle SMA dan Mata pelajaran yang terdapat pada
-          SMA/MA.
-        </p>
-        <p className="font-semibold text-left text-2xl mt-4 mb-2">
-          Video Jingle
-        </p>
-        <LazyYoutube
-          url={"https://www.youtube.com/embed/Ejwr0sEOeWY?si=qaDPm0CZa5bbXXPt"}
-          title={"Jingle SMA"}
-        />
-        <p className="font-semibold text-left text-2xl my-4">
-          Mata Pelajaran di SMA/MA
-        </p>
-        <ul className="list-disc ps-4">
-          {smaList.map((jurusan) => (
-            <li>
-              <div className="">
-                <p className="font-semibold text-left text-xl">
-                  {jurusan.subject}
-                </p>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {jurusan.videos.map((item) => (
-                    <div key={item.title} className="mb-4">
-                      <div className=" relative w-full pb-[56.25%] h-0">
-                        <LazyYoutube url={item.url} title={item.title} />
-                      </div>
-                      <p className="text-center mt-2">{item.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-
-        <p className="font-semibold text-left text-3xl mt-8">SMK</p>
-        <p className="text-description mb-4">
-          Berikut adalah Jingle SMK Bisa dan Jurusan yang terdapat pada SMK.
-        </p>
-        <p className="font-semibold text-left text-2xl mt-4 mb-2">
-          Video Jingle
-        </p>
-        <LazyYoutube
-          url={"https://www.youtube.com/embed/thuPDKF33Gg?si=r7sUWOnlmPhW2siX"}
-          title={"Jingle SMK"}
-        />
-        <p className="font-semibold text-left text-2xl mt-4 mb-2">
-          Jurusan di SMA/MA
-        </p>
-        <LazyYoutube
-          url={"https://www.youtube.com/embed/QMP1RdeGLL8?si=XJaM1zC2DjOIbnC2"}
-          title={"Jalan-jalan yuk keliling SMK, pasti seruuuuu!!!"}
-        />
-        <ul className="list-disc ps-4 mt-4">
-          {smkList.map((jurusan) => (
-            <li>
-              <div className="">
-                <p className="font-semibold text-left text-xl">
-                  {jurusan.subject}
-                </p>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {jurusan.videos.map((item) => (
-                    <div key={item.title} className="mb-4">
-                      <div className=" relative w-full pb-[56.25%] h-0">
-                        <LazyYoutube url={item.url} title={item.title} />
-                      </div>
-                      <p className="text-center mt-2">{item.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+    <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[84.1dvh]">
+      <div
+        className="flex justif-start items-center gap-2 cursor-pointer"
+        onClick={() => navigate("/jurusan")}
+      >
+        <CircleArrowLeft size={16} />
+        <p>Kembali</p>
       </div>
+      <div className="flex justify-between items-end mt-2 mb-4">
+        <div>
+          <p className="font-semibold text-left text-3xl ">
+            {sekolah == "sma" ? "SMA/MA" : "SMK"}
+          </p>
+          <p className="text-description ">
+            {sekolah == "sma"
+              ? "Berikut adalah mata pelajaran yang terdapat pada SMA/MA."
+              : "Berikut jurusan-jurusan yang terdapat pada SMK."}
+          </p>
+        </div>
+        <div className="grid w-full max-w-sm items-center gap-2">
+          <Label htmlFor="email" className="font-semibold">
+            Cari Jurusan
+          </Label>
+          <Input
+            type="email"
+            id="email"
+            placeholder={`Cari Berdasarkan Nama ${
+              sekolah == "sma" ? "Mata Pelajaran" : "Jurusan"
+            }`}
+          />
+        </div>
+      </div>
+      {sekolah == "sma" ? (
+        <>
+          <ul className="list-disc ps-4">
+            {smaList.map((jurusan) => (
+              <li>
+                <div className="">
+                  <p className="font-semibold text-left text-xl">
+                    {jurusan.subject}
+                  </p>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {jurusan.videos.map((item) => (
+                      <div key={item.title} className="mb-4">
+                        <div className=" relative w-full pb-[56.25%] h-0">
+                          <LazyYoutube url={item.url} title={item.title} />
+                        </div>
+                        <p className="text-center mt-2">{item.title}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <ul className="list-disc ps-4 mt-4">
+            {smkList.map((jurusan) => {
+              const visibleCount = visibleCounts[jurusan.subject] ?? 3;
+              const isMoreAvailable = visibleCount < jurusan.videos.length;
+
+              return (
+                <li key={jurusan.subject}>
+                  <div>
+                    <p className="font-semibold text-left text-xl">
+                      {jurusan.subject}
+                    </p>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      {jurusan.videos.slice(0, visibleCount).map((item) => (
+                        <div key={item.title} className="mb-4">
+                          <div className="relative w-full pb-[56.25%] h-0">
+                            <LazyYoutube url={item.url} title={item.title} />
+                          </div>
+                          <p className="text-center mt-2">{item.title}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {isMoreAvailable && (
+                      <div className="mt-4 text-center">
+                        <Button
+                          onClick={() =>
+                            handleShowMore(
+                              jurusan.subject,
+                              jurusan.videos.length
+                            )
+                          }
+                          className="px-4 py-2 bg-primary text-white rounded transition"
+                        >
+                          Lihat lebih banyak
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
 
-export default Jurusan;
+export default JurusanList;

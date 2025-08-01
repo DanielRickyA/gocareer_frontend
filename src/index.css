@@ -5,6 +5,23 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+@keyframes bounce-smooth {
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-15px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* animasi hanya terjadi saat hover */
+.animate-bounce-smooth:hover {
+  animation: bounce-smooth 1s ease-in-out infinite;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
