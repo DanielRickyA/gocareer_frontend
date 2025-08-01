@@ -81,7 +81,7 @@ function MinatBakat() {
           Pahami berbagai bidang minat dan temukan yang paling menggambarkan
           dirimu. Fokus pada yang paling cocok, bukan yang paling umum.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-8 gap-6">
           {minatBakatList.map((item) => (
             <div>
               <Card className="bg-[#F9FAFC] h-full shadow-none border-[0.3px]">
