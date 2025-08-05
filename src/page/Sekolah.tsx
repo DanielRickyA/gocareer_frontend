@@ -8,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useIsMobile from "@/hooks/useIsMobile";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -115,6 +117,8 @@ const sekolahList = [
 
 function Sekolah() {
   const [openSmk, setOpenSmk] = useState<string[]>([]);
+  const [tab, setTab] = useState<string>("sma");
+  const isMobile = useIsMobile();
 
   const toggleSmk = (namaSmk: string) => {
     setOpenSmk((prev) =>
@@ -125,7 +129,7 @@ function Sekolah() {
   };
   return (
     <div className="relative">
-      <div className="container mx-auto max-w-6xl 8 py-12 min-h-[85dvh]">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
         <div className="flex gap-6 items-center justify-start">
           <img src="/icon5.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">Sekolah</h1>
@@ -162,73 +166,154 @@ function Sekolah() {
             </Select>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        {isMobile ? (
           <>
-            <h1 className="text-2xl font-semibold">SMA</h1>
-            <h1 className="text-2xl font-semibold">SMK</h1>
-          </>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-          {sekolahList.map((item) => (
-            <>
-              <div>
-                <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                  <p className="font-semibold">{item.kabupaten}</p>
-                </div>
-                <div className="mt-2">
-                  {item?.sma?.map((sma) => (
-                    <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
-                      <CardContent className="flex flex-col h-full">
-                        <p className=" my-2">{sma}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+            <Tabs defaultValue="sma" className="w-full mt-4">
+              <TabsList className="w-full">
+                <TabsTrigger
+                  value="sma"
+                  className="w-full"
+                  onClick={() => setTab("sma")}
+                >
+                  SMA
+                </TabsTrigger>
+                <TabsTrigger
+                  value="smk"
+                  className="w-full"
+                  onClick={() => setTab("smk")}
+                >
+                  SMK
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <div>
+              <h1 className="text-2xl font-semibold mt-4">
+                {tab == "sma" ? "SMA" : "SMK"}
+              </h1>
 
-              <div>
-                <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                  <p className="font-semibold">{item.kabupaten}</p>
-                </div>
-                <div className="mt-2">
-                  {item?.smk?.map((smk) => {
-                    const isOpen = openSmk.includes(smk.nama);
-                    return (
-                      <Card
-                        className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
-                        onClick={() => toggleSmk(smk.nama)}
-                      >
-                        <CardContent className="flex flex-col h-full">
-                          <div className="flex justify-between items-center">
-                            <p className=" my-2">{smk.nama}</p>
-                            <div className="flex items-center gap-2">
-                              <p>Jurusan</p>
-                              <ChevronDown
-                                className={`${
-                                  isOpen && "rotate-180"
-                                } transition-all duration-500 ease-in-out`}
-                              />
-                            </div>
-                          </div>
-                          {openSmk.includes(smk.nama) && (
-                            <div>
-                              <ul className="list-disc ps-4">
-                                {smk.jurusan.map((jurusan, index) => (
-                                  <li key={index}>{jurusan}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          ))}
-        </div>
+              {sekolahList.map((item) => (
+                <>
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {tab == "sma"
+                        ? item?.sma?.map((sma) => (
+                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+                              <CardContent className="flex flex-col h-full">
+                                <p className=" my-2">{sma}</p>
+                              </CardContent>
+                            </Card>
+                          ))
+                        : item?.smk?.map((smk) => {
+                            const isOpen = openSmk.includes(smk.nama);
+                            return (
+                              <Card
+                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
+                                onClick={() => toggleSmk(smk.nama)}
+                              >
+                                <CardContent className="flex flex-col h-full">
+                                  <div className="flex justify-between items-center gap-4">
+                                    <p className=" my-2">{smk.nama}</p>
+                                    <div className="flex items-center gap-2">
+                                      <p>Jurusan</p>
+                                      <ChevronDown
+                                        className={`${
+                                          isOpen && "rotate-180"
+                                        } transition-all duration-500 ease-in-out`}
+                                      />
+                                    </div>
+                                  </div>
+                                  {openSmk.includes(smk.nama) && (
+                                    <div>
+                                      <ul className="list-disc ps-4">
+                                        {smk.jurusan.map((jurusan, index) => (
+                                          <li key={index}>{jurusan}</li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
+                                </CardContent>
+                              </Card>
+                            );
+                          })}
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <>
+                <h1 className="text-2xl font-semibold">SMA</h1>
+                <h1 className="text-2xl font-semibold">SMK</h1>
+              </>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+              {sekolahList.map((item) => (
+                <>
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {item?.sma?.map((sma) => (
+                        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+                          <CardContent className="flex flex-col h-full">
+                            <p className=" my-2">{sma}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {item?.smk?.map((smk) => {
+                        const isOpen = openSmk.includes(smk.nama);
+                        return (
+                          <Card
+                            className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
+                            onClick={() => toggleSmk(smk.nama)}
+                          >
+                            <CardContent className="flex flex-col h-full">
+                              <div className="flex justify-between items-center gap-4">
+                                <p className=" my-2">{smk.nama}</p>
+                                <div className="flex items-center gap-2">
+                                  <p>Jurusan</p>
+                                  <ChevronDown
+                                    className={`${
+                                      isOpen && "rotate-180"
+                                    } transition-all duration-500 ease-in-out`}
+                                  />
+                                </div>
+                              </div>
+                              {openSmk.includes(smk.nama) && (
+                                <div>
+                                  <ul className="list-disc ps-4">
+                                    {smk.jurusan.map((jurusan, index) => (
+                                      <li key={index}>{jurusan}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
