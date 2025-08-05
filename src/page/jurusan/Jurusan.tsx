@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Jurusan() {
   return (
     <div className="">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[84.1dvh]">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
         <div className="flex gap-6 items-center justify-start">
           <img src="/icon3.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">Jurusan</h1>
