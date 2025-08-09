@@ -393,12 +393,12 @@ function Sekolah() {
               <>
                 <div className="flex-1">
                   <h1 className="text-2xl font-semibold">SMA</h1>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                     {mapelList[0]?.mapel?.map((smk) => (
                       <div>
-                        <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4">
-                          <CardContent className="">
-                            <p className="text-sm">{smk}</p>
+                        <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
+                          <CardContent className="px-4">
+                            <p className="text-sm md:text-xs">{smk}</p>
                           </CardContent>
                         </Card>
                       </div>
@@ -407,12 +407,12 @@ function Sekolah() {
                 </div>
                 <div className="flex-1">
                   <h1 className="text-2xl font-semibold">SMK</h1>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                     {mapelList[0]?.jurusan?.map((smk) => (
                       <div>
                         <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
                           <CardContent className="px-4">
-                            <p className="text-sm">{smk}</p>
+                            <p className="text-sm md:text-xs">{smk}</p>
                           </CardContent>
                         </Card>
                       </div>
