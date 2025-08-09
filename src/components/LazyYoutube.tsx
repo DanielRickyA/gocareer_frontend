@@ -18,13 +18,13 @@ function LazyYoutube({ url, title }: LazyYoutubeProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div
-          className="relative w-full pb-[56.25%] h-0 bg-black cursor-pointer"
+          className="relative w-full pb-[56.25%] h-0 bg-black cursor-pointer rounded-lg"
           title={title}
         >
           <img
             src={thumbnail}
             alt={title}
-            className="absolute top-0 left-0 w-full h-full object-cover"
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-[#FF0033] text-white text-2xl px-6 py-2 rounded-xl shadow-lg">

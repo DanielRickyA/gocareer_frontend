@@ -464,11 +464,11 @@ function JurusanList() {
             {smaList.map((jurusan) => (
               <li>
                 <div className="">
-                  <p className="font-semibold text-left text-xl">
+                  <p className="font-semibold text-left text-xl mb-2">
                     {jurusan.subject}
                   </p>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {jurusan.videos.map((item) => (
                       <div key={item.title} className="mb-4">
                         <div className=" relative w-full pb-[56.25%] h-0">

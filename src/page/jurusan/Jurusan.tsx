@@ -14,7 +14,7 @@ function Jurusan() {
           menentukan arah pendidikanmu. Jika kamu ingin melihat jurusan SMA atau
           SMK, silakan pilih kartu di bawah ini sesuai dengan keinginanmu.
         </p>
-        <div className="flex justify-between items-center max-w-3xl w-full mx-auto mt-20">
+        <div className="flex flex-col md:flex-row justify-between items-center max-w-3xl w-full mx-auto mt-20 gap-10">
           <Link to={"/jurusan/sma"}>
             <Card className="p-10 animate-bounce-smooth cursor-pointer aspect-square bg-[#F9FAFC]  shadow-none border-[0.3px]">
               <CardContent>
