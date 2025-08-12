@@ -25,13 +25,6 @@ function LandingPage() {
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
                 </p>
-                {/* <Button
-                  className="bg-primary rounded-full mt-4 w-full md:w-auto  md:text-[16px] font-medium cursor-pointer"
-                  size={"lg"}
-                  onClick={() => navigate("/tes-minat")}
-                >
-                  Tes Minat Sekarang
-                </Button> */}
               </div>
               <div className="h-full ">
                 <img src="/Foto2.png" alt="photo1" className="h-full w-full" />

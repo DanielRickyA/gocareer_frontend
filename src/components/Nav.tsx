@@ -9,11 +9,16 @@ function Nav() {
   const location = useLocation();
   const sections = [
     { id: "/home", label: "Beranda", location: "/home" },
-    { id: "/tes-minat", label: "Tes Minat", location: "/tes-minat" },
+    {
+      id: "/uji-coba-minat",
+      label: "Uji Coba Minat",
+      location: "/uji-coba-minat",
+    },
     { id: "/minat-bakat", label: "Minat Bakat", location: "/minat-bakat" },
     { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
     { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
     { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
+    { id: "/tentang-kami", label: "Tentang Kami", location: "/tentang-kami" },
   ];
 
   useEffect(() => {

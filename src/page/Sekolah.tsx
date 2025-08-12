@@ -115,54 +115,9 @@ const sekolahList = [
   },
 ];
 
-const mapelList = [
-  {
-    mapel: [
-      "Pendidikan Agama",
-      "Seni dan Budaya",
-      "Antropologi",
-      "Pendidikan Pancasila",
-      "Biologi",
-      "Bahasa Arab",
-      "Bahasa Indonesia",
-      "Kimia",
-      "Bahasa Jerman",
-      "Matematika",
-      "Fisika",
-      "Prakarya dan Kewirausahaan",
-      "Bahasa Inggris",
-      "Sosiologi",
-      "Informatika",
-      "PJOK",
-      "Ekonomi",
-      "Mandarin",
-      "Sejarah",
-      "Geografi",
-    ],
-    jurusan: [
-      "Teknik Komputer dan Jaringan",
-      "Teknik Fabrikasi Logam dan Manufaktur",
-      "Teknik Reyakaya Perangkat Lunak",
-      "Teknik Instalasi Tenaga Listrik",
-      "Teknik Lektronika Industri",
-      "Teknik Grafika",
-      "Teknik Mekatronika",
-      "Teknik dan Bisnis Sepeda Motor",
-      "Brodcasting dan Film",
-      "Teknik Otomotif Kendaraan Ringan",
-      "Teknik Otomotif",
-      "Perhotelan",
-      "Teknik Pemesinan",
-      "Teknik Elektronika",
-      "Akuntansi dan Keunangan",
-    ],
-  },
-];
-
 function Sekolah() {
   // const [openSmk, setOpenSmk] = useState<string[]>([]);
   const [tab, setTab] = useState<string>("sma");
-  const [tabMain, setTabMain] = useState<string>("sekolah");
   const isMobile = useIsMobile();
 
   // const toggleSmk = (namaSmk: string) => {
@@ -184,109 +139,88 @@ function Sekolah() {
           Jelajahi berdasarkan kabupaten, dan jurusan. Dapatkan informasi
           lengkap untuk menentukan sekolah impianmu.
         </p>
-        <Tabs defaultValue="sma" className="w-full mt-4 mb-12">
-          <TabsList className="w-full">
-            <TabsTrigger
-              value="sma"
-              className="w-full"
-              onClick={() => setTabMain("sekolah")}
-            >
-              Sekolah
-            </TabsTrigger>
-            <TabsTrigger
-              value="smk"
-              className="w-full"
-              onClick={() => setTabMain("mapel")}
-            >
-              Mata Pelajaran / Jurusan
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-        {tabMain == "sekolah" ? (
-          <>
-            <div className="flex justify-between items-end mt-6 ">
-              <div className="flex flex-col md:flex-row gap-6 w-full">
-                <div className="grid w-full md:max-w-sm items-center gap-2">
-                  <Label htmlFor="email" className="font-semibold">
-                    Cari Sekolah
-                  </Label>
-                  <Input
-                    type="text"
-                    id="email"
-                    placeholder={`Cari Berdasarkan Nama Sekolah `}
-                  />
-                </div>
-                <div className="grid w-full md:max-w-sm items-center gap-2">
-                  <Label className="font-semibold">Filter Kabupaten</Label>
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Semua Kabupaten" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="semua">Semua Kabupaten</SelectItem>
-                      <SelectItem value="gunungKidul">Gunung Kidul</SelectItem>
-                      <SelectItem value="kulonProgo">Kulon Progo</SelectItem>
-                      <SelectItem value="sleman">Sleman</SelectItem>
-                      <SelectItem value="yogyakarta">
-                        Kota Yogyakarta
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+
+        <div className="flex justify-between items-end mt-6 ">
+          <div className="flex flex-col md:flex-row gap-6 w-full">
+            <div className="grid w-full md:max-w-sm items-center gap-2">
+              <Label htmlFor="email" className="font-semibold">
+                Cari Sekolah
+              </Label>
+              <Input
+                type="text"
+                id="email"
+                placeholder={`Cari Berdasarkan Nama Sekolah `}
+              />
             </div>
+            <div className="grid w-full md:max-w-sm items-center gap-2">
+              <Label className="font-semibold">Filter Kabupaten</Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Semua Kabupaten" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="semua">Semua Kabupaten</SelectItem>
+                  <SelectItem value="gunungKidul">Gunung Kidul</SelectItem>
+                  <SelectItem value="kulonProgo">Kulon Progo</SelectItem>
+                  <SelectItem value="sleman">Sleman</SelectItem>
+                  <SelectItem value="yogyakarta">Kota Yogyakarta</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
 
-            {isMobile ? (
-              <>
-                <Tabs defaultValue="sma" className="w-full mt-4">
-                  <TabsList className="w-full">
-                    <TabsTrigger
-                      value="sma"
-                      className="w-full"
-                      onClick={() => setTab("sma")}
-                    >
-                      SMA
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="smk"
-                      className="w-full"
-                      onClick={() => setTab("smk")}
-                    >
-                      SMK
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
-                <div>
-                  <h1 className="text-2xl font-semibold mt-4">
-                    {tab == "sma" ? "SMA" : "SMK"}
-                  </h1>
+        {isMobile ? (
+          <>
+            <Tabs defaultValue="sma" className="w-full mt-4">
+              <TabsList className="w-full">
+                <TabsTrigger
+                  value="sma"
+                  className="w-full"
+                  onClick={() => setTab("sma")}
+                >
+                  SMA
+                </TabsTrigger>
+                <TabsTrigger
+                  value="smk"
+                  className="w-full"
+                  onClick={() => setTab("smk")}
+                >
+                  SMK
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <div>
+              <h1 className="text-2xl font-semibold mt-4">
+                {tab == "sma" ? "SMA" : "SMK"}
+              </h1>
 
-                  {sekolahList.map((item) => (
-                    <>
-                      <div>
-                        <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                          <p className="font-semibold">{item.kabupaten}</p>
-                        </div>
-                        <div className="mt-2">
-                          {tab == "sma"
-                            ? item?.sma?.map((sma) => (
-                                <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
-                                  <CardContent className="flex flex-col h-full">
-                                    <p className=" my-2">{sma}</p>
-                                  </CardContent>
-                                </Card>
-                              ))
-                            : item?.smk?.map((smk) => {
-                                // const isOpen = openSmk.includes(smk.nama);
-                                return (
-                                  <Card
-                                    className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
-                                    // onClick={() => toggleSmk(smk.nama)}
-                                  >
-                                    <CardContent className="flex flex-col h-full">
-                                      <div className="flex justify-between items-center gap-4">
-                                        <p className=" my-2">{smk.nama}</p>
-                                        {/* <div className="flex items-center gap-2">
+              {sekolahList.map((item) => (
+                <>
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {tab == "sma"
+                        ? item?.sma?.map((sma) => (
+                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+                              <CardContent className="flex flex-col h-full">
+                                <p className=" my-2">{sma}</p>
+                              </CardContent>
+                            </Card>
+                          ))
+                        : item?.smk?.map((smk) => {
+                            // const isOpen = openSmk.includes(smk.nama);
+                            return (
+                              <Card
+                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
+                                // onClick={() => toggleSmk(smk.nama)}
+                              >
+                                <CardContent className="flex flex-col h-full">
+                                  <div className="flex justify-between items-center gap-4">
+                                    <p className=" my-2">{smk.nama}</p>
+                                    {/* <div className="flex items-center gap-2">
                                           <p>Jurusan</p>
                                           <ChevronDown
                                             className={`${
@@ -294,8 +228,8 @@ function Sekolah() {
                                             } transition-all duration-500 ease-in-out`}
                                           />
                                         </div> */}
-                                      </div>
-                                      {/* {openSmk.includes(smk.nama) && (
+                                  </div>
+                                  {/* {openSmk.includes(smk.nama) && (
                                         <div>
                                           <ul className="list-disc ps-4">
                                             {smk.jurusan.map(
@@ -306,58 +240,58 @@ function Sekolah() {
                                           </ul>
                                         </div>
                                       )} */}
-                                    </CardContent>
-                                  </Card>
-                                );
-                              })}
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                </div>
-              </>
-            ) : (
+                                </CardContent>
+                              </Card>
+                            );
+                          })}
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                  <>
-                    <h1 className="text-2xl font-semibold">SMA</h1>
-                    <h1 className="text-2xl font-semibold">SMK</h1>
-                  </>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                  {sekolahList.map((item) => (
-                    <>
-                      <div>
-                        <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                          <p className="font-semibold">{item.kabupaten}</p>
-                        </div>
-                        <div className="mt-2">
-                          {item?.sma?.map((sma) => (
-                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
-                              <CardContent className="flex flex-col h-full">
-                                <p className=" my-2">{sma}</p>
-                              </CardContent>
-                            </Card>
-                          ))}
-                        </div>
-                      </div>
+                <h1 className="text-2xl font-semibold">SMA</h1>
+                <h1 className="text-2xl font-semibold">SMK</h1>
+              </>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+              {sekolahList.map((item) => (
+                <>
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {item?.sma?.map((sma) => (
+                        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+                          <CardContent className="flex flex-col h-full">
+                            <p className=" my-2">{sma}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
 
-                      <div>
-                        <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                          <p className="font-semibold">{item.kabupaten}</p>
-                        </div>
-                        <div className="mt-2">
-                          {item?.smk?.map((smk) => {
-                            // const isOpen = openSmk.includes(smk.nama);
-                            return (
-                              <Card
-                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 "
-                                // onClick={() => toggleSmk(smk.nama)}
-                              >
-                                <CardContent className="flex flex-col h-full">
-                                  {/* <div className="flex justify-between items-center gap-4"> */}
-                                  <p className=" my-2">{smk.nama}</p>
-                                  {/* <div className="flex items-center gap-2">
+                  <div>
+                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                      <p className="font-semibold">{item.kabupaten}</p>
+                    </div>
+                    <div className="mt-2">
+                      {item?.smk?.map((smk) => {
+                        // const isOpen = openSmk.includes(smk.nama);
+                        return (
+                          <Card
+                            className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 "
+                            // onClick={() => toggleSmk(smk.nama)}
+                          >
+                            <CardContent className="flex flex-col h-full">
+                              {/* <div className="flex justify-between items-center gap-4"> */}
+                              <p className=" my-2">{smk.nama}</p>
+                              {/* <div className="flex items-center gap-2">
                                       <p>Jurusan</p>
                                       <ChevronDown
                                         className={`${
@@ -365,8 +299,8 @@ function Sekolah() {
                                         } transition-all duration-500 ease-in-out`}
                                       />
                                     </div> */}
-                                  {/* </div> */}
-                                  {/* {openSmk.includes(smk.nama) && (
+                              {/* </div> */}
+                              {/* {openSmk.includes(smk.nama) && (
                                     <div>
                                       <ul className="list-disc ps-4">
                                         {smk.jurusan.map((jurusan, index) => (
@@ -375,51 +309,14 @@ function Sekolah() {
                                       </ul>
                                     </div>
                                   )} */}
-                                </CardContent>
-                              </Card>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <div className="flex flex-col lg:flex-row justify-between gap-6">
-              <>
-                <div className="flex-1">
-                  <h1 className="text-2xl font-semibold">SMA</h1>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-                    {mapelList[0]?.mapel?.map((smk) => (
-                      <div>
-                        <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
-                          <CardContent className="px-4">
-                            <p className="text-sm md:text-xs">{smk}</p>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    ))}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-                <div className="flex-1">
-                  <h1 className="text-2xl font-semibold">SMK</h1>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-                    {mapelList[0]?.jurusan?.map((smk) => (
-                      <div>
-                        <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
-                          <CardContent className="px-4">
-                            <p className="text-sm md:text-xs">{smk}</p>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
+                </>
+              ))}
             </div>
           </>
         )}

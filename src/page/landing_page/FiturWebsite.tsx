@@ -32,11 +32,11 @@ const fiturList = [
     link: "/sekolah",
   },
   {
-    title: "Tes Minat",
+    title: "Uji Coba Minat",
     description:
       "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
     icon: "/icon1.png",
-    link: "/tes-minat",
+    link: "/uji-coba-minat",
   },
 ];
 
