@@ -9,6 +9,7 @@ import Dukungan from "./page/Dukungan";
 import Sekolah from "./page/Sekolah";
 import JurusanList from "./page/jurusan/JurusanList";
 import SubJurusanList from "./page/jurusan/SubJurusanList";
+import TentangKami from "./page/TentangKami";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             />
             <Route path="dukungan" element={<Dukungan />} />
             <Route path="sekolah" element={<Sekolah />} />
+            <Route path="tentang-kami" element={<TentangKami />} />
           </Route>
         </Routes>
       </Router>

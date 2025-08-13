@@ -116,17 +116,9 @@ const sekolahList = [
 ];
 
 function Sekolah() {
-  // const [openSmk, setOpenSmk] = useState<string[]>([]);
   const [tab, setTab] = useState<string>("sma");
   const isMobile = useIsMobile();
 
-  // const toggleSmk = (namaSmk: string) => {
-  //   setOpenSmk((prev) =>
-  //     prev.includes(namaSmk)
-  //       ? prev.filter((nama) => nama !== namaSmk)
-  //       : [...prev, namaSmk]
-  //   );
-  // };
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
@@ -210,40 +202,15 @@ function Sekolah() {
                               </CardContent>
                             </Card>
                           ))
-                        : item?.smk?.map((smk) => {
-                            // const isOpen = openSmk.includes(smk.nama);
-                            return (
-                              <Card
-                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer"
-                                // onClick={() => toggleSmk(smk.nama)}
-                              >
-                                <CardContent className="flex flex-col h-full">
-                                  <div className="flex justify-between items-center gap-4">
-                                    <p className=" my-2">{smk.nama}</p>
-                                    {/* <div className="flex items-center gap-2">
-                                          <p>Jurusan</p>
-                                          <ChevronDown
-                                            className={`${
-                                              isOpen && "rotate-180"
-                                            } transition-all duration-500 ease-in-out`}
-                                          />
-                                        </div> */}
-                                  </div>
-                                  {/* {openSmk.includes(smk.nama) && (
-                                        <div>
-                                          <ul className="list-disc ps-4">
-                                            {smk.jurusan.map(
-                                              (jurusan, index) => (
-                                                <li key={index}>{jurusan}</li>
-                                              )
-                                            )}
-                                          </ul>
-                                        </div>
-                                      )} */}
-                                </CardContent>
-                              </Card>
-                            );
-                          })}
+                        : item?.smk?.map((smk) => (
+                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer">
+                              <CardContent className="flex flex-col h-full">
+                                <div className="flex justify-between items-center gap-4">
+                                  <p className=" my-2">{smk.nama}</p>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
                     </div>
                   </div>
                 </>
@@ -281,38 +248,13 @@ function Sekolah() {
                       <p className="font-semibold">{item.kabupaten}</p>
                     </div>
                     <div className="mt-2">
-                      {item?.smk?.map((smk) => {
-                        // const isOpen = openSmk.includes(smk.nama);
-                        return (
-                          <Card
-                            className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 "
-                            // onClick={() => toggleSmk(smk.nama)}
-                          >
-                            <CardContent className="flex flex-col h-full">
-                              {/* <div className="flex justify-between items-center gap-4"> */}
-                              <p className=" my-2">{smk.nama}</p>
-                              {/* <div className="flex items-center gap-2">
-                                      <p>Jurusan</p>
-                                      <ChevronDown
-                                        className={`${
-                                          isOpen && "rotate-180"
-                                        } transition-all duration-500 ease-in-out`}
-                                      />
-                                    </div> */}
-                              {/* </div> */}
-                              {/* {openSmk.includes(smk.nama) && (
-                                    <div>
-                                      <ul className="list-disc ps-4">
-                                        {smk.jurusan.map((jurusan, index) => (
-                                          <li key={index}>{jurusan}</li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  )} */}
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
+                      {item?.smk?.map((smk) => (
+                        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 ">
+                          <CardContent className="flex flex-col h-full">
+                            <p className=" my-2">{smk.nama}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
                   </div>
                 </>
