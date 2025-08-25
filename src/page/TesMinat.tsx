@@ -14,6 +14,9 @@ const tesMinatList = [
   "Saya suka mempelajari peta",
   "Saya suka mempelajari budaya",
   "Saya suka mempelajari tentang kegiatan ekonomi",
+  "Saya suka bermain peran",
+  "Saya suka berpidato",
+  "Saya suka menuangkan ide ke dalam hasil teknologi ",
 ];
 
 function TesMinat() {
