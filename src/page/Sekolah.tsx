@@ -25,42 +25,7 @@ const sekolahList = [
       "SMAN 3 Bantul",
       "SMAN 1 Dlingo",
     ],
-    smk: [
-      {
-        nama: "SMKN 1 Bantul",
-        jurusan: [
-          "Akuntansi",
-          "Bisnis Digital",
-          "Bisnis Retail",
-          "Desain Komunikasi Visual",
-          "Layanan Perbankan Syariah",
-          "Manajemen Perkantoran",
-          "Rekayasa Perangkat Lunak",
-          "Teknik Komputer dan Jaringan",
-        ],
-      },
-      {
-        nama: "SMKN 1 Dlingo",
-        jurusan: [
-          "Desain dan Produksi Busana",
-          "Kriya Kreatif Kayu dan Rotan",
-          "Teknik Audio Video",
-        ],
-      },
-      {
-        nama: "SMKN 1 Pajangan",
-        jurusan: [
-          "Desain Pemodelan dan Informasi Bangunan",
-          "Kriya Kreatif Kayu dan Rotan",
-          "Rekayasa Perangkat Lunak",
-          "Desain Komunikasi Visual",
-          "Layanan Perbankan Syariah",
-          "Manajemen Perkantoran",
-          "Rekayasa Perangkat Lunak",
-          "Teknik Komputer dan Jaringan",
-        ],
-      },
-    ],
+    smk: ["SMKN 1 Bantul", "SMKN 1 Dlingo", "SMKN 1 Pajangan"],
   },
   {
     kabupaten: "KABUPATEN GUNUNGKIDUL",
@@ -77,40 +42,10 @@ const sekolahList = [
       "SMAN 1 Wonosari",
     ],
     smk: [
-      {
-        nama: "SMKN 1 Gedangsari",
-        jurusan: [
-          "Bisnis Digital menjadi Bisnis Retail",
-          "Teknik Elektronika Industri",
-          "Teknik Sepeda Motor",
-        ],
-      },
-      {
-        nama: "SMKN 2 Gedangsari",
-        jurusan: [
-          "Desain dan Produksi Busana",
-          "Kriya Kreatif Kayu dan Rotan",
-          "Teknik Audio Video",
-        ],
-      },
-      {
-        nama: "SMKN 1 Girisubo",
-        jurusan: [
-          "Akuntansi",
-          "Desain dan Produksi Busana",
-          "Teknik Kendaraan Ringan",
-        ],
-      },
-      {
-        nama: "SMKN 1 Ngawen",
-        jurusan: [
-          "Akuntansi",
-          "Desain Komunikasi Visual",
-          "Kuliner",
-          "Teknik Kendaraan Ringan",
-          "Teknik komputer dan Jaringan",
-        ],
-      },
+      "SMKN 1 Gedangsari",
+      "SMKN 2 Gedangsari",
+      "SMKN 1 Girisubo",
+      "SMKN 1 Ngawen",
     ],
   },
 ];
@@ -206,7 +141,7 @@ function Sekolah() {
                             <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer">
                               <CardContent className="flex flex-col h-full">
                                 <div className="flex justify-between items-center gap-4">
-                                  <p className=" my-2">{smk.nama}</p>
+                                  <p className=" my-2">{smk}</p>
                                 </div>
                               </CardContent>
                             </Card>
@@ -251,7 +186,7 @@ function Sekolah() {
                       {item?.smk?.map((smk) => (
                         <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 ">
                           <CardContent className="flex flex-col h-full">
-                            <p className=" my-2">{smk.nama}</p>
+                            <p className=" my-2">{smk}</p>
                           </CardContent>
                         </Card>
                       ))}
