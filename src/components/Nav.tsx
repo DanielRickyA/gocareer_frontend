@@ -44,7 +44,7 @@ function Nav() {
         }
         `}
     >
-      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-8">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-8 ">
         <Link to="/home" className="flex items-center gap-2">
           <p className="font-bold text-3xl">
             Go <span className="text-primary">Career</span>

@@ -10,6 +10,7 @@ import Sekolah from "./page/Sekolah";
 import JurusanList from "./page/jurusan/JurusanList";
 import SubJurusanList from "./page/jurusan/SubJurusanList";
 import TentangKami from "./page/TentangKami";
+import { Toaster } from "sonner";
 
 function App() {
   return (
@@ -33,6 +34,13 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      <Toaster
+        // position="top-center"
+        toastOptions={{
+          style: { fontFamily: "DM+Sans, sans-serif" },
+        }}
+        richColors
+      />
     </>
   );
 }

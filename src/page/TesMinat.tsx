@@ -1,5 +1,8 @@
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const tesMinatList = [
   "Saya suka mempelajari kisah teladan tokoh agama",
@@ -21,8 +24,9 @@ const tesMinatList = [
 
 function TesMinat() {
   const [page, setPage] = useState(0);
-  const perPage = 5;
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
+  const [name, setName] = useState<string>("");
+  const perPage = 5;
 
   const startIndex = page * perPage;
   const currentQuestions = tesMinatList.slice(startIndex, startIndex + perPage);
@@ -43,11 +47,34 @@ function TesMinat() {
   const handleNext = () => {
     if (isAllAnswered) {
       setPage((prev) => prev + 1);
+
+      setTimeout(() => {
+        const element = document.getElementById("Soal");
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.scrollY - 80; // 80 = tinggi navbar
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 100);
     }
   };
 
   const handleBack = () => {
     setPage((prev) => prev - 1);
+  };
+
+  const handleSubmit = () => {
+    if (name == "") {
+      toast.error("Nama Perserta Belum diisi!");
+      setTimeout(() => {
+        const element = document.getElementById("nama");
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.scrollY - 80; // 80 = tinggi navbar
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      toast.success("Data Berhasi disubmit");
+    }
   };
   return (
     <div className="relative">
@@ -62,7 +89,17 @@ function TesMinat() {
           Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak
           salah pilih jurusan!
         </p>
-        <div className="mt-8">
+        <div className="mt-8 grid w-full max-w-sm items-center gap-3" id="nama">
+          <Label htmlFor="nama">Nama Peserta</Label>
+          <Input
+            type="text"
+            id="nama"
+            placeholder="Masukan Nama Anda"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="mt-8" id="Soal">
           {currentQuestions.map((soal, index) => {
             const globalIndex = startIndex + index;
             return (
@@ -107,11 +144,11 @@ function TesMinat() {
                               }
 
                               return (
-                                <label
+                                <Label
                                   key={num}
                                   className="flex flex-col items-center cursor-pointer"
                                 >
-                                  <input
+                                  <Input
                                     type="radio"
                                     name={`soal-${globalIndex}`}
                                     value={num}
@@ -125,7 +162,7 @@ function TesMinat() {
                                   <div
                                     className={`rounded-full border-2 ${sizeClass} ${borderColor} ${checkedColor} transition`}
                                   />
-                                </label>
+                                </Label>
                               );
                             })}
                           </div>
@@ -166,7 +203,7 @@ function TesMinat() {
             {page === totalPages - 1 ? (
               // Kalau sudah halaman terakhir
               <button
-                onClick={() => alert("Selesai! Terima kasih sudah mengisi.")}
+                onClick={handleSubmit}
                 disabled={!isAllAnswered}
                 className={`px-4 py-2 rounded-full ${
                   !isAllAnswered
