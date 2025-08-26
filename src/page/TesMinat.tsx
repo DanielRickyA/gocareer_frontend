@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const tesMinatList = [
@@ -23,6 +24,7 @@ const tesMinatList = [
 ];
 
 function TesMinat() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
   const [name, setName] = useState<string>("");
@@ -74,6 +76,8 @@ function TesMinat() {
       }, 100);
     } else {
       toast.success("Data Berhasi disubmit");
+      navigate("/uji-coba-minat/hasil");
+      localStorage.setItem("name", name);
     }
   };
   return (

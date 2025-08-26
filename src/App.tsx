@@ -11,6 +11,7 @@ import JurusanList from "./page/jurusan/JurusanList";
 import SubJurusanList from "./page/jurusan/SubJurusanList";
 import TentangKami from "./page/TentangKami";
 import { Toaster } from "sonner";
+import HasilTesMinat from "./page/HasilTesMinat";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/*" element={<Layout />}>
             <Route path="home" element={<LandingPage />} />
             <Route path="uji-coba-minat" element={<TesMinat />} />
+            <Route path="uji-coba-minat/hasil" element={<HasilTesMinat />} />
             <Route path="minat-bakat" element={<MinatBakat />} />
             <Route path="jurusan" element={<Jurusan />} />
             <Route path="jurusan/:sekolah" element={<JurusanList />} />
