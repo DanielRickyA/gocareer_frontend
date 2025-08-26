@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
