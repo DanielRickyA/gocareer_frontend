@@ -32,7 +32,7 @@ function HasilTesMinat() {
         </p>
         <p className="text-2xl mt-6">
           Peserta yang memiliki Minat Bakat pada bidang{" "}
-          <span className="font-semibold">Minat Ilmu Pengetahuan Alam</span>
+          <span className="font-semibold">Minat Ilmu Pengetahuan Alam</span>{" "}
           Kecenderungan pilihan peserta didik menyukai atau tidak menyukai
           kegiatan bidang Ilmu Pengetahuan Alam
         </p>
