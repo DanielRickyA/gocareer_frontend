@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 body {
-  font-family: "DM+Sans", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 @keyframes bounce-smooth {
@@ -20,6 +20,13 @@ body {
 /* animasi hanya terjadi saat hover */
 .animate-bounce-smooth:hover {
   animation: bounce-smooth 1s ease-in-out infinite;
+}
+
+.recharts-wrapper:focus {
+  outline: none !important;
+}
+.recharts-surface:focus {
+  outline: none !important;
 }
 
 @custom-variant dark (&:is(.dark *));
