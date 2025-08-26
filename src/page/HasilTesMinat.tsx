@@ -86,7 +86,7 @@ function HasilTesMinat() {
               <PolarAngleAxis dataKey="name" />
               <PolarRadiusAxis />
               <Tooltip />
-              <Legend />
+              <Legend layout="vertical" align="right" verticalAlign="middle" />
               <Radar
                 name="Skor Minat"
                 dataKey="point"
