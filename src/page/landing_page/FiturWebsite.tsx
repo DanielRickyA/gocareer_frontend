@@ -3,6 +3,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 
 const fiturList = [
+  // {
+  //   title: "Uji Coba Minat",
+  //   description:
+  //     "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
+  //   icon: "/icon1.png",
+  //   link: "/uji-coba-minat",
+  // },
   {
     title: "Minat Bakat",
     description:
@@ -31,20 +38,13 @@ const fiturList = [
     icon: "/icon5.png",
     link: "/sekolah",
   },
-  {
-    title: "Uji Coba Minat",
-    description:
-      "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
-    icon: "/icon1.png",
-    link: "/uji-coba-minat",
-  },
 ];
 
 function FiturWebsite() {
   const navigate = useNavigate();
   return (
     <div className="relative">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-4 pt-10 z-10">
+      <div className="container mx-auto max-w-5xl px-4 md:px-8 py-4 pt-10 z-10">
         <h1 className="text-center text-3xl font-semibold">
           Rancang <span className="text-primary  z-20">Masa Depanmu</span>
         </h1>
@@ -57,7 +57,7 @@ function FiturWebsite() {
             return (
               <div
                 key={index}
-                className="flex flex-col items-center mb-6 md:mb-8 px-0 md:px-4 sm:w-1/2 lg:w-1/3 sm:max-w-xs"
+                className="flex flex-col items-center mb-6 md:mb-8 px-0 md:px-4 sm:w-1/2 lg:max-w-[50%] sm:max-w-xs"
               >
                 <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20">
                   <CardContent className="flex flex-col h-full">

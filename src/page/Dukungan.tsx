@@ -15,7 +15,7 @@ function Dukungan() {
         <div className="flex items-center w-full mt-10">
           <p className="font-semibold text-left text-2xl ">Peran Orangtua</p>
         </div>
-        <p className="mt-2 text-justify text-description">
+        <p className="my-2 text-justify text-description">
           Orang tua memiliki peran sangat penting dalam pendidikan seorang anak.
           Dari orang tua lah anak belajar pertama kali tentang kehidupan
           termasuk dalam hal pendidikan. Saat memasuki masa remaja, peran teman
@@ -28,7 +28,7 @@ function Dukungan() {
           url={"https://www.youtube.com/embed/tvQFj6GAFE0?si=DP-jwYUn7o4YtUHy"}
           title={"Memahami Minat dan Bakat Siswa"}
         />
-        <div className="flex items-center w-full mt-10">
+        <div className="flex items-center w-full mt-8">
           <p className="font-semibold text-left text-2xl ">
             Peran Walikelas dan Guru Mata Pelajaran
           </p>
@@ -41,7 +41,7 @@ function Dukungan() {
           kondisi, keingininan dan harapannya.
         </p>
 
-        <div className="flex items-center w-full mt-10">
+        <div className="flex items-center w-full mt-8">
           <p className="font-semibold text-left text-2xl ">Peran Guru BK</p>
         </div>
         <p className="mt-2 text-justify text-description">
