@@ -119,6 +119,11 @@ function TesMinat() {
                         </span>
 
                         <div className="w-full">
+                          {/* Label bawah khusus untuk mobile */}
+                          <div className="flex justify-between w-full mb-2 md:hidden px-1">
+                            <span className="text-xs">Tidak Setuju</span>
+                            <span className="text-xs">Setuju</span>
+                          </div>
                           {/* Bulatan */}
                           <div className="flex space-x-2 md:space-x-4 items-center justify-center">
                             {[1, 2, 3, 4, 5, 6, 7].map((num) => {
@@ -171,10 +176,12 @@ function TesMinat() {
                             })}
                           </div>
 
-                          {/* Label bawah khusus untuk mobile */}
-                          <div className="flex justify-between w-full mt-2 md:hidden px-1">
-                            <span className="text-xs">Tidak Setuju</span>
-                            <span className="text-xs">Setuju</span>
+                          <div className="flex justify-between w-full mt-4 px-9">
+                            {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+                              <span key={num} className="text-xs font-semibold">
+                                {num}
+                              </span>
+                            ))}
                           </div>
                         </div>
 
