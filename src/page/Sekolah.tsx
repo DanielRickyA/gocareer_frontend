@@ -1,4 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { getSekolah, type SekolahResponseModel } from "@/api/apiSekolah";
+import CardSekolah from "@/components/CardSekolah";
+import SkeletonSekolah from "@/components/SkeletonSekolah";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -10,50 +12,54 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useIsMobile from "@/hooks/useIsMobile";
+import { useQuery } from "@tanstack/react-query";
+import Lottie from "lottie-react";
 // import { ChevronDown } from "lucide-react";
-import { useState } from "react";
-
-const sekolahList = [
-  {
-    kabupaten: "KABUPATEN BANTUL",
-    sma: [
-      "SMAN 1 Bambanglipuro",
-      "SMAN 1 Banguntapan",
-      "SMAN 2 Banguntapan",
-      "SMAN 1 Bantul",
-      "SMAN 2 Bantul",
-      "SMAN 3 Bantul",
-      "SMAN 1 Dlingo",
-    ],
-    smk: ["SMKN 1 Bantul", "SMKN 1 Dlingo", "SMKN 1 Pajangan"],
-  },
-  {
-    kabupaten: "KABUPATEN GUNUNGKIDUL",
-    sma: [
-      "SMAN 1 Karangmojo",
-      "SMAN 1 Panggang",
-      "SMAN 1 Patuk",
-      "SMAN 1 Playen",
-      "SMAN 2 Playen",
-      "SMAN 1 Rongkop",
-      "SMAN 1 Semanu",
-      "SMAN 1 Semin",
-      "SMAN 1 Tanjungsari",
-      "SMAN 1 Wonosari",
-    ],
-    smk: [
-      "SMKN 1 Gedangsari",
-      "SMKN 2 Gedangsari",
-      "SMKN 1 Girisubo",
-      "SMKN 1 Ngawen",
-    ],
-  },
-];
-
+import { useMemo, useState } from "react";
+import { toast } from "sonner";
+import noData from "../assets/Emptybox.json";
 function Sekolah() {
   const [tab, setTab] = useState<string>("sma");
+  const [kabupaten, setKabupaten] = useState<string>("0");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const isMobile = useIsMobile();
 
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["sekolah", kabupaten],
+    queryFn: () => getSekolah(Number(kabupaten)),
+    retry: false,
+  });
+
+  const filteredData = useMemo(() => {
+    if (!data?.data) return [];
+
+    const lowerSearch = searchTerm.toLowerCase();
+
+    return (
+      data.data
+        .map((item: SekolahResponseModel) => {
+          const filteredSMA = item.sma.filter((sma) =>
+            sma.nama.toLowerCase().includes(lowerSearch)
+          );
+          const filteredSMK = item.smk.filter((smk) =>
+            smk.nama.toLowerCase().includes(lowerSearch)
+          );
+
+          return {
+            ...item,
+            sma: filteredSMA,
+            smk: filteredSMK,
+          };
+        })
+        // Hapus kabupaten yang hasilnya kosong semua
+        .filter((item) => item.sma.length > 0 || item.smk.length > 0)
+    );
+  }, [data, searchTerm]);
+
+  if (isError) {
+    const err = error as { message: string };
+    return toast.error(err.message);
+  }
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
@@ -75,22 +81,28 @@ function Sekolah() {
               </Label>
               <Input
                 type="text"
-                id="email"
-                placeholder={`Cari Berdasarkan Nama Sekolah `}
+                id="search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Cari Berdasarkan Nama Sekolah"
               />
             </div>
             <div className="grid w-full md:max-w-sm items-center gap-2">
               <Label className="font-semibold">Filter Kabupaten</Label>
-              <Select>
+              <Select
+                value={kabupaten}
+                onValueChange={(value) => setKabupaten(value)}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Semua Kabupaten" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="semua">Semua Kabupaten</SelectItem>
-                  <SelectItem value="gunungKidul">Gunung Kidul</SelectItem>
-                  <SelectItem value="kulonProgo">Kulon Progo</SelectItem>
-                  <SelectItem value="sleman">Sleman</SelectItem>
-                  <SelectItem value="yogyakarta">Kota Yogyakarta</SelectItem>
+                  <SelectItem value="0">Semua Kabupaten</SelectItem>
+                  <SelectItem value="1">Bantul</SelectItem>
+                  <SelectItem value="2">Gunung Kidul</SelectItem>
+                  <SelectItem value="3">Kulon Progo</SelectItem>
+                  <SelectItem value="4">Sleman</SelectItem>
+                  <SelectItem value="5">Kota Yogyakarta</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -118,83 +130,54 @@ function Sekolah() {
               </TabsList>
             </Tabs>
             <div>
-              <h1 className="text-2xl font-semibold mt-4">
-                {tab == "sma" ? "SMA" : "SMK"}
-              </h1>
-
-              {sekolahList.map((item) => (
+              {filteredData.length == 0 ? (
+                <div className="flex flex-col justify-center items-center w-full h-full mt-6">
+                  <Lottie animationData={noData} className="mx-auto w-[40%]" />
+                  <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+                </div>
+              ) : (
                 <>
-                  <div>
-                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                      <p className="font-semibold">{item.kabupaten}</p>
-                    </div>
+                  <h1 className="text-2xl font-semibold mt-4">
+                    {tab == "sma" ? "SMA" : "SMK"}
+                  </h1>
+                  {filteredData?.map((item: SekolahResponseModel) => (
                     <div className="mt-2">
-                      {tab == "sma"
-                        ? item?.sma?.map((sma) => (
-                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
-                              <CardContent className="flex flex-col h-full">
-                                <p className=" my-2">{sma}</p>
-                              </CardContent>
-                            </Card>
-                          ))
-                        : item?.smk?.map((smk) => (
-                            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 cursor-pointer">
-                              <CardContent className="flex flex-col h-full">
-                                <div className="flex justify-between items-center gap-4">
-                                  <p className=" my-2">{smk}</p>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
+                      <CardSekolah item={item} sekolah={tab} />
                     </div>
-                  </div>
+                  ))}
                 </>
-              ))}
+              )}
             </div>
           </>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            {filteredData.length == 0 ? (
+              <div className="flex flex-col justify-center items-center w-full h-full mt-6 col">
+                <Lottie animationData={noData} className="mx-auto w-[40%]" />
+                <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+              </div>
+            ) : (
               <>
-                <h1 className="text-2xl font-semibold">SMA</h1>
-                <h1 className="text-2xl font-semibold">SMK</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                  <>
+                    <h1 className="text-2xl font-semibold">SMA</h1>
+                    <h1 className="text-2xl font-semibold">SMK</h1>
+                  </>
+                </div>
+                {isLoading ? (
+                  <SkeletonSekolah />
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                    {filteredData?.map((item: SekolahResponseModel) => (
+                      <>
+                        <CardSekolah item={item} sekolah="sma" />
+                        <CardSekolah item={item} sekolah="smk" />
+                      </>
+                    ))}
+                  </div>
+                )}
               </>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-              {sekolahList.map((item) => (
-                <>
-                  <div>
-                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                      <p className="font-semibold">{item.kabupaten}</p>
-                    </div>
-                    <div className="mt-2">
-                      {item?.sma?.map((sma) => (
-                        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
-                          <CardContent className="flex flex-col h-full">
-                            <p className=" my-2">{sma}</p>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                      <p className="font-semibold">{item.kabupaten}</p>
-                    </div>
-                    <div className="mt-2">
-                      {item?.smk?.map((smk) => (
-                        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2 ">
-                          <CardContent className="flex flex-col h-full">
-                            <p className=" my-2">{smk}</p>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              ))}
-            </div>
+            )}
           </>
         )}
       </div>

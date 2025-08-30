@@ -1,99 +1,40 @@
+import { getItemJurusan, type SubJurusanResponseModel } from "@/api/apiJurusan";
 import LazyYoutube from "@/components/LazyYoutube";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+import Lottie from "lottie-react";
 import { CircleArrowLeft } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-const smaList = {
-  subject: "Pendidikan Agama dan Budi Pekerti",
-  videos: [
-    {
-      title: "Prasangka Baik Husnuzzan",
-      url: "https://www.youtube.com/embed/GNoSc20cPd4",
-    },
-    {
-      title: "Menghormati dan Menyayangi Orang tua dan Guru",
-      url: "https://www.youtube.com/embed/sNe9n_UqIes",
-    },
-  ],
-};
-
-const smkList = {
-  subject: "Teknik Komputer dan Jaringan",
-  videos: [
-    {
-      title: "Merancang Pengalamatan Jaringan",
-      url: "https://www.youtube.com/embed/QZPYoozLzvY",
-    },
-    {
-      title: "Menyiapkan Kabel Jaringan",
-      url: "https://www.youtube.com/embed/BzQCu8X5CA4",
-    },
-    {
-      title: "Merakit Komputer",
-      url: "https://www.youtube.com/embed/MgxRiLe_7kY",
-    },
-    {
-      title: "Mengkonfigurasi VLAN",
-      url: "https://www.youtube.com/embed/xMvHQD1Bxpk",
-    },
-    {
-      title: "Mengkonfigurasi Switch Pada Jaringan",
-      url: "https://www.youtube.com/embed/STzP7NLbM9s",
-    },
-    {
-      title: "Mengkonfigurasi Sistem Keamanan Jaringan",
-      url: "https://www.youtube.com/embed/Yfa28sTxmM0",
-    },
-    {
-      title: "Mengkomfigurasi Routing Statis",
-      url: "https://www.youtube.com/embed/OKXGIL5g9y8",
-    },
-    {
-      title: "Mengkonfigurasi Roouting Dinamis",
-      url: "https://www.youtube.com/embed/Yd8shJ3l36c",
-    },
-    {
-      title: "Mengkonvigurasi DNS Server",
-      url: "https://www.youtube.com/embed/ZuQ7dPppqGI",
-    },
-    {
-      title: "Mengkonfigurasi DHCP Server",
-      url: "https://www.youtube.com/embed/nOgEFQKKiMU",
-    },
-    {
-      title: "Menginstalasi Sistem Operasi",
-      url: "https://www.youtube.com/embed/xB7OF_DuEhI",
-    },
-    {
-      title: "Menginstalasi Jaringan Local (LAN)",
-      url: "https://www.youtube.com/embed/83l7zEQ0IL4",
-    },
-    {
-      title: "Menginstalasi Software Aplikasi",
-      url: "https://www.youtube.com/embed/5wXD-51u7bc",
-    },
-    {
-      title: "Mendesain Topologi Jaringan",
-      url: "https://www.youtube.com/embed/OvLT6yv_OOM",
-    },
-    {
-      title: "Membangun Jaringan Nirkabel",
-      url: "https://www.youtube.com/embed/pGeNwBjqaF8",
-    },
-    {
-      title: "Memasang Kabel Jaringan",
-      url: "https://www.youtube.com/embed/d4o5kXhpYPQ",
-    },
-    {
-      title: "Melakukan Setting BIOS",
-      url: "https://www.youtube.com/embed/e3NXG4WTp1w",
-    },
-  ],
-};
-
+import { toast } from "sonner";
+import noData from "../../assets/Emptybox.json";
 function SubJurusanList() {
-  const { sekolah } = useParams();
+  const { sekolah, jurusan } = useParams();
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  // pastikan jurusan param ada dan convert ke number
+  const jurusanId = jurusan ? Number(jurusan) : null;
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["itemjurusan", jurusanId],
+    queryFn: () => getItemJurusan(jurusanId as number),
+    enabled: !!jurusanId,
+    retry: false,
+  });
+
+  const filteredItemJurusan = useMemo(() => {
+    if (!data?.data) return [];
+    return data.data.filter((j: SubJurusanResponseModel) =>
+      j.nama.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [data?.data, search]);
+
+  if (isError) {
+    const err = error as { message: string };
+    return toast.error(err.message);
+  }
 
   return (
     <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[84.1dvh]">
@@ -113,36 +54,53 @@ function SubJurusanList() {
           </p>
         </div>
         <div className="grid w-full max-w-sm items-center gap-2">
-          <Input type="email" id="email" placeholder="Cari Berdasarkan Judul" />
+          <Input
+            type="email"
+            id="email"
+            placeholder="Cari Berdasarkan Judul"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
       </div>
-      {sekolah == "sma" ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          {smaList?.videos?.map((jurusan) => (
+
+      <div
+        className={`grid grid-cols-1 ${
+          sekolah == "smk" || jurusan == "19"
+            ? "md:grid-cols-3"
+            : "md:grid-cols-2"
+        } gap-6 mt-6`}
+      >
+        {isLoading ? (
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(() => (
+            <div>
+              <Skeleton className="h-[200px] w-full rounded-xl" />
+
+              <Skeleton className="h-[20px] w-full rounded-xl mt-4" />
+            </div>
+          ))
+        ) : filteredItemJurusan.length == 0 ? (
+          <div
+            className={`flex flex-col justify-center items-center w-full h-full mt-6 ${
+              sekolah == "sma" || jurusan == "19" ? "col-span-2" : "col-span-3"
+            }`}
+          >
+            <Lottie animationData={noData} className="mx-auto w-[40%]" />
+            <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+          </div>
+        ) : (
+          filteredItemJurusan?.map((jurusan: SubJurusanResponseModel) => (
             <div className="mb-4">
               <div className=" relative w-full pb-[56.25%] h-0">
-                <LazyYoutube url={jurusan.url} title={jurusan.title} />
+                <LazyYoutube url={jurusan.youtube} title={jurusan.nama} />
               </div>
               <p className="text-center mt-2 text-lg font-semibold">
-                {jurusan.title}
+                {jurusan.nama}
               </p>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          {smkList?.videos?.map((jurusan) => (
-            <div className="mb-4">
-              <div className=" relative w-full pb-[56.25%] h-0">
-                <LazyYoutube url={jurusan.url} title={jurusan.title} />
-              </div>
-              <p className="text-center mt-2 text-lg font-semibold">
-                {jurusan.title}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }

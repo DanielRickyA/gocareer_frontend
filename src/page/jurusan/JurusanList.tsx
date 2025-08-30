@@ -1,60 +1,40 @@
+import { getJurusan, type JurusanResponseModel } from "@/api/apiJurusan";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CircleArrowLeft } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
-const mapelList = {
-  mapel: [
-    "Pendidikan Agama dan Budi Pekerti",
-    "Seni dan Budaya",
-    "Antropologi",
-    "Pendidikan Pancasila",
-    "Biologi",
-    "Bahasa Arab",
-    "Bahasa Indonesia",
-    "Kimia",
-    "Bahasa Jerman",
-    "Matematika",
-    "Fisika",
-    "Prakarya dan Kewirausahaan",
-    "Bahasa Inggris",
-    "Sosiologi",
-    "Informatika",
-    "PJOK",
-    "Ekonomi",
-    "Mandarin",
-    "Sejarah",
-    "Geografi",
-  ],
-  jurusan: [
-    "Teknik Komputer dan Jaringan",
-    "Teknik Fabrikasi Logam dan Manufaktur",
-    "Teknik Reyakaya Perangkat Lunak",
-    "Teknik Instalasi Tenaga Listrik",
-    "Teknik Lektronika Industri",
-    "Teknik Grafika",
-    "Teknik Mekatronika",
-    "Teknik dan Bisnis Sepeda Motor",
-    "Brodcasting dan Film",
-    "Teknik Otomotif Kendaraan Ringan",
-    "Teknik Otomotif",
-    "Perhotelan",
-    "Teknik Pemesinan",
-    "Teknik Elektronika",
-    "Akuntansi dan Keunangan",
-  ],
-};
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useMemo, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import Lottie from "lottie-react";
+import noData from "../../assets/Emptybox.json";
 
 function JurusanList() {
   const { sekolah } = useParams();
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
-  function toLowerUnderscore(text: string) {
-    return text
-      .toLowerCase() // ubah ke lowercase
-      .replace(/\s+/g, "_") // ubah semua spasi jadi underscore
-      .trim(); // hilangkan spasi di awal/akhir
+  // Query ke API
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["jurusan"],
+    queryFn: getJurusan,
+    retry: false,
+  });
+
+  const filteredJurusan = useMemo(() => {
+    if (!data?.data) return [];
+    return data.data.filter(
+      (j: JurusanResponseModel) =>
+        j.tipe_sekolah === sekolah &&
+        j.nama.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [data?.data, sekolah, search]);
+
+  if (isError) {
+    const err = error as { message: string };
+    return toast.error(err.message);
   }
 
   return (
@@ -84,36 +64,44 @@ function JurusanList() {
           <Input
             type="email"
             id="email"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder={`Cari Berdasarkan Nama ${
               sekolah == "sma" ? "Mata Pelajaran" : "Jurusan"
             }`}
           />
         </div>
       </div>
-      {sekolah == "sma" ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
-          {mapelList.mapel.map((item) => (
-            <Link to={toLowerUnderscore(item)}>
-              <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
-                <CardContent className="px-4">
-                  <p className="text-sm">{item}</p>
-                </CardContent>
-              </Card>
-            </Link>
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-6">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(() => (
+            <div>
+              <Skeleton className="h-[60px] w-full rounded-xl" />
+            </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
-          {mapelList.jurusan.map((item) => (
-            <Link to={toLowerUnderscore(item)}>
-              <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0">
-                <CardContent className="px-4">
-                  <p className="text-sm md:text-xs">{item}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        <>
+          {filteredJurusan.length == 0 && (
+            <div className="flex flex-col justify-center items-center w-full h-full mt-6">
+              <Lottie animationData={noData} className="mx-auto w-[40%]" />
+              <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+            </div>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-6">
+            {filteredJurusan
+              ?.filter((j) => j.tipe_sekolah == sekolah)
+              .map((jurusan: JurusanResponseModel) => (
+                <Link to={`${jurusan.id}`} key={jurusan.id} className="h-full">
+                  <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0 h-full">
+                    <CardContent className="px-4">
+                      <p className="text-sm">{jurusan.nama}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+          </div>
+        </>
       )}
     </div>
   );

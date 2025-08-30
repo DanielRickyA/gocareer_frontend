@@ -28,7 +28,7 @@ function LandingPage() {
                   size={"lg"}
                   onClick={() => navigate("/tes-minat")}
                 >
-                  Tes Minat Sekarang
+                  Uji Coba Minat Sekarang
                 </Button>
               </div>
               <div className="min-h-full object-fill">
