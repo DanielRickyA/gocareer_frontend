@@ -32,7 +32,7 @@ function LandingPage() {
                 </Button>
               </div>
               <div className="min-h-full object-fill">
-                <img src="/Foto2.png" alt="photo1" className="h-full w-full" />
+                <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
           </CardContent>
