@@ -5,10 +5,10 @@ function UjiCobaMinat() {
   const navigate = useNavigate();
   return (
     <div className="relative bg-secondary">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8  min-h-[85dvh] items-center flex flex-col justify-center ">
-        <div className="flex gap-6 items-center justify-center">
-          <img src="/icon1.png" alt="" />
-          <h1 className="text-4xl md:text-7xl text-left font-bold">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 min-h-[85dvh] items-center flex flex-col justify-center z-10 relative">
+        <div className="flex gap-6 items-center justify-center ">
+          <img src="/icon1.png" alt="" className="hidden sm:block" />
+          <h1 className="text-3xl md:text-7xl text-left font-bold">
             Uji Coba Minat
           </h1>
         </div>
@@ -18,11 +18,17 @@ function UjiCobaMinat() {
         </p>
 
         <Button
-          className="bg-primary text-2xl h-16 px-8 rounded-full mt-20 w-full lg:w-auto font-medium mx-auto flex justify-center"
+          className="bg-primary text-lg md:text-2xl h-12 px-6 md:h-16 md:px-8 rounded-full mt-20 w-auto font-medium mx-auto flex justify-center"
           onClick={() => navigate("/uji-coba-minat/tes")}
         >
           Uji Coba Minat Sekarang
         </Button>
+      </div>
+      <div className="absolute top-[10%] right-0 h-[15%] w-[20%] md:w-[15%] z-0">
+        <img src="/assets1.png" alt="" className="w-full" />
+      </div>
+      <div className="absolute bottom-[10%] md:bottom-[15%] lg:bottom-[40%] left-0 h-[15%] w-[25%] md:w-[15%] z-0">
+        <img src="/assets2.png" alt="" className="w-full" />
       </div>
     </div>
   );
