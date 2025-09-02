@@ -125,16 +125,16 @@ function TesMinat() {
                             <span className="text-xs">Setuju</span>
                           </div>
                           {/* Bulatan */}
-                          <div className="flex space-x-2 md:space-x-4 items-center justify-center">
+                          <div className="flex space-x-2 md:space-x-4 items-end justify-center">
                             {[1, 2, 3, 4, 5, 6, 7].map((num) => {
                               const sizes = [
-                                "w-14 h-14", // 1
-                                "w-12 h-12", // 2
-                                "w-10 h-10", // 3
-                                "w-8 h-8", // 4
-                                "w-10 h-10", // 5
-                                "w-12 h-12", // 6
-                                "w-14 h-14", // 7
+                                "w-7 h-7", // 1
+                                "w-8 h-8", // 2
+                                "w-9 h-9", // 3
+                                "w-10 h-10", // 4
+                                "w-12 h-12", // 5
+                                "w-14 h-14", // 6
+                                "w-16 h-16", // 7
                               ];
                               const sizeClass = sizes[num - 1];
 
@@ -171,18 +171,21 @@ function TesMinat() {
                                   <div
                                     className={`rounded-full border-2 ${sizeClass} ${borderColor} ${checkedColor} transition`}
                                   />
+                                  <span className="mt-1 text-xs font-semibold">
+                                    {num}
+                                  </span>
                                 </Label>
                               );
                             })}
                           </div>
 
-                          <div className="flex justify-between w-full mt-4 px-9">
+                          {/* <div className="flex justify-between w-full mt-4 px-9">
                             {[1, 2, 3, 4, 5, 6, 7].map((num) => (
                               <span key={num} className="text-xs font-semibold">
                                 {num}
                               </span>
                             ))}
-                          </div>
+                          </div> */}
                         </div>
 
                         {/* Label kanan (desktop) */}

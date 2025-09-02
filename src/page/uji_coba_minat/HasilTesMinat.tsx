@@ -57,7 +57,7 @@ function HasilTesMinat() {
             Kimia, Fisika, Biologi, Biokimia, dll
           </span>
         </p>
-        <p className="mt-4 font-semibold">Jenjang Perguruan Tinggi : </p>
+        <p className="mt-4 font-semibold">Prospek Karir : </p>
         <ul className="list-decimal pl-4 space-y-2">
           <li>Program Studi Kimia (Chemistry)</li>
           <li>Program Studi Fisika (Physics)</li>
