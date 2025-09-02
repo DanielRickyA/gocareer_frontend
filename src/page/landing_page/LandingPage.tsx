@@ -26,7 +26,7 @@ function LandingPage() {
                 <Button
                   className="bg-primary rounded-full mt-4 w-full lg:w-auto font-medium "
                   size={"lg"}
-                  onClick={() => navigate("/tes-minat")}
+                  onClick={() => navigate("/uji-coba-minat")}
                 >
                   Uji Coba Minat Sekarang
                 </Button>
