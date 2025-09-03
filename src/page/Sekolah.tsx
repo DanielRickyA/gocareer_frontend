@@ -130,53 +130,61 @@ function Sekolah() {
               </TabsList>
             </Tabs>
             <div>
-              {filteredData.length == 0 ? (
-                <div className="flex flex-col justify-center items-center w-full h-full mt-6">
-                  <Lottie animationData={noData} className="mx-auto w-[40%]" />
-                  <p className="text-xl font-semibold  mt-4">Data Kosong</p>
-                </div>
+              {isLoading ? (
+                <SkeletonSekolah />
               ) : (
                 <>
                   <h1 className="text-2xl font-semibold mt-4">
                     {tab == "sma" ? "SMA" : "SMK"}
                   </h1>
-                  {filteredData?.map((item: SekolahResponseModel) => (
-                    <div className="mt-2">
-                      <CardSekolah item={item} sekolah={tab} />
+                  {filteredData.length == 0 ? (
+                    <div className="flex flex-col justify-center items-center w-full h-full mt-6">
+                      <Lottie
+                        animationData={noData}
+                        className="mx-auto w-[40%]"
+                      />
+                      <p className="text-xl font-semibold  mt-4">Data Kosong</p>
                     </div>
-                  ))}
+                  ) : (
+                    filteredData?.map((item: SekolahResponseModel, index) => (
+                      <div className="mt-2" key={index}>
+                        <CardSekolah item={item} sekolah={tab} />
+                      </div>
+                    ))
+                  )}
                 </>
               )}
             </div>
           </>
         ) : (
           <>
-            {filteredData.length == 0 ? (
-              <div className="flex flex-col justify-center items-center w-full h-full mt-6 col">
-                <Lottie animationData={noData} className="mx-auto w-[40%]" />
-                <p className="text-xl font-semibold  mt-4">Data Kosong</p>
-              </div>
-            ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                  <>
-                    <h1 className="text-2xl font-semibold">SMA</h1>
-                    <h1 className="text-2xl font-semibold">SMK</h1>
-                  </>
-                </div>
-                {isLoading ? (
-                  <SkeletonSekolah />
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                    {filteredData?.map((item: SekolahResponseModel) => (
-                      <>
-                        <CardSekolah item={item} sekolah="sma" />
-                        <CardSekolah item={item} sekolah="smk" />
-                      </>
-                    ))}
-                  </div>
-                )}
+                <h1 className="text-2xl font-semibold">SMA</h1>
+                <h1 className="text-2xl font-semibold">SMK</h1>
               </>
+            </div>
+            {isLoading ? (
+              <SkeletonSekolah />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                {filteredData.length == 0 ? (
+                  <div className="flex flex-col justify-center items-center w-full h-full mt-6 col col-span-2">
+                    <Lottie
+                      animationData={noData}
+                      className="mx-auto w-[40%]"
+                    />
+                    <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+                  </div>
+                ) : (
+                  filteredData?.map((item: SekolahResponseModel, index) => (
+                    <div key={index}>
+                      <CardSekolah item={item} sekolah="sma" />
+                      <CardSekolah item={item} sekolah="smk" />
+                    </div>
+                  ))
+                )}
+              </div>
             )}
           </>
         )}

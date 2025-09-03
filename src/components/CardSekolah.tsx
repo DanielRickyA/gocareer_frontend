@@ -16,14 +16,20 @@ function CardSekolah({
       <div className="mt-2">
         {sekolah == "sma"
           ? item?.sma?.map((sma) => (
-              <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+              <Card
+                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                key={sma.id}
+              >
                 <CardContent className="flex flex-col h-full">
                   <p className=" my-2">{sma.nama}</p>
                 </CardContent>
               </Card>
             ))
           : item?.smk?.map((smk) => (
-              <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2">
+              <Card
+                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                key={smk.id}
+              >
                 <CardContent className="flex flex-col h-full">
                   <p className=" my-2">{smk.nama}</p>
                 </CardContent>
