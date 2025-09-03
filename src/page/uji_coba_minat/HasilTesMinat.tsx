@@ -1,11 +1,44 @@
 import { Card, CardContent } from "@/components/ui/card";
+import useIsMobile from "@/hooks/useIsMobile";
 import { CircleArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Tooltip,
+  ResponsiveContainer,
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from "recharts";
 
 function HasilTesMinat() {
   const navigate = useNavigate();
   const [name, setName] = useState<string>("");
+  const isMobile = useIsMobile();
+  const chartData = [
+    {
+      name: "Minat Ilmu Pengetahuan Alam",
+      point: 30,
+    },
+    {
+      name: "Minat Keagamaan",
+      point: 23,
+    },
+    {
+      name: "Minat Matematika",
+      point: 11,
+    },
+    {
+      name: "Minat Ilmu Pengetahuan Sosial",
+      point: 8,
+    },
+    {
+      name: "Minat Bahasa dan Budaya",
+      point: 5,
+    },
+  ];
 
   useEffect(() => {
     const localName = localStorage.getItem("name");
@@ -147,6 +180,32 @@ function HasilTesMinat() {
             </ol>
           </li>
         </ol>
+        <p className="text-xl mt-6 font-semibold">
+          Grafik Hasil Uji Coba Minat
+        </p>
+        <div className="h-[300px] md:h-[450px] mt-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart
+              cx={`${isMobile ? "50%" : "35%"}`}
+              cy="50%"
+              outerRadius={`${isMobile ? "50%" : "80%"}`}
+              data={chartData}
+            >
+              <PolarGrid />
+              <PolarAngleAxis dataKey="name" />
+              <PolarRadiusAxis />
+              <Tooltip />
+              {/* <Legend layout="vertical" align="right" verticalAlign="middle" /> */}
+              <Radar
+                name="Skor Minat"
+                dataKey="point"
+                stroke="#4298b4"
+                fill="#4298b4"
+                fillOpacity={0.6}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
