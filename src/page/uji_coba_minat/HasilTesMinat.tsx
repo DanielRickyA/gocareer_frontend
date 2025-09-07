@@ -12,36 +12,43 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
+import { getInterestDescription, getInterestDescription2 } from "./Helper";
+
+interface ChartData {
+  name: string;
+  point: number;
+}
 
 function HasilTesMinat() {
   const navigate = useNavigate();
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [topCategories, setTopCategories] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const isMobile = useIsMobile();
-  const chartData = [
-    {
-      name: "Minat Ilmu Pengetahuan Alam",
-      point: 30,
-    },
-    {
-      name: "Minat Keagamaan",
-      point: 23,
-    },
-    {
-      name: "Minat Matematika",
-      point: 11,
-    },
-    {
-      name: "Minat Ilmu Pengetahuan Sosial",
-      point: 8,
-    },
-    {
-      name: "Minat Bahasa dan Budaya",
-      point: 5,
-    },
-  ];
 
   useEffect(() => {
     const localName = localStorage.getItem("name");
+    const localCharData = localStorage.getItem("testResults");
+
+    if (localCharData) {
+      const parsedData = JSON.parse(localCharData);
+      const formattedData = Object.entries(parsedData).map(([name, point]) => ({
+          name,
+          point: Number(point),
+        }))
+        .filter(item => item.point !== 0) as ChartData[];
+
+      const maxPoint = Math.max(...formattedData.map(item => item.point));
+      const topCategories = formattedData
+        .filter(item => item.point === maxPoint)
+        .map(item => item.name);
+      
+      setTopCategories(topCategories);
+      setChartData(formattedData);
+    } else {
+      setChartData([]);
+    }
+
     setName(localName ?? "");
   }, []);
 
@@ -65,15 +72,22 @@ function HasilTesMinat() {
               Minat bakat yang paling sesuai untuk kamu:
             </p>
             <p className="text-4xl font-semibold mt-4 text-primary">
-              Minat Ilmu Pengetahuan Alam
+              {topCategories
+                .map((item) => getInterestDescription(item))
+                .join(", ")}
             </p>
             <p className="text-xl mt-8">
               Peserta dengan minat bakat di bidang{" "}
               <span className="font-semibold text-primary">
-                Minat Ilmu Pengetahuan Alam
+                {topCategories
+                  .map((item) => getInterestDescription2(item))
+                  .join(", ")}
               </span>
               , Kecenderungan pilihan peserta didik menyukai atau tidak menyukai
-              kegiatan bidang Ilmu Pengetahuan Alam
+              kegiatan bidang{" "}
+              {topCategories
+                .map((item) => getInterestDescription2(item))
+                .join(", ")}
             </p>
           </CardContent>
         </Card>
@@ -81,16 +95,43 @@ function HasilTesMinat() {
           Deskripsi Hasil Uji Coba Minat
         </p>
         <p className="mt-2">
-          Kecenderungan pilihan peserta didik menyukai kegiatan bidang Ilmu
-          Pengetahuan Alam.
+          Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
+          {topCategories
+            .map((item) => getInterestDescription2(item))
+            .join(", ")}
         </p>
-        <p className="mt-4">
-          Area Belajar Sekolah Menengah Atas/Kejuruan:{" "}
-          <span className="font-semibold">
-            Kimia, Fisika, Biologi, Biokimia, dll
-          </span>
-        </p>
-        <p className="mt-4 font-semibold">Jenjang Perguruan Tinggi : </p>
+        <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4">
+          <CardContent>
+            <p>
+              <span className="font-semibold text-green-800">
+                Area Belajar{" "}
+              </span>
+              Sekolah Menengah Atas/Kejuruan:{" "}
+              <span className="font-semibold">
+                Kimia, Fisika, Biologi, Biokimia, dll
+              </span>
+            </p>
+            <p className="mt-2">
+              Bidang yang{" "}
+              <span className="font-semibold text-red-800">
+                Tidak Kamu Kuasai{" "}
+              </span>
+              pada Sekolah Menengah Atas/Kejuruan:{" "}
+              <span className="font-semibold">
+                {chartData
+                  .filter(
+                    (item) => item.name !== topCategories[0] && item.point !== 0
+                  )
+                  .sort((a, b) => a.point - b.point)
+                  .slice(0, 3)
+                  .map((item) => getInterestDescription2(item.name))
+                  .join(", ") || "Tidak ada"}
+              </span>
+            </p>
+          </CardContent>
+        </Card>
+        <hr className="my-6 border-t border-gray-300" />
+        <p className="mt-4 font-semibold mb-2">Jenjang Perguruan Tinggi : </p>
         <ul className="list-decimal pl-4 space-y-2">
           <li>Program Studi Kimia (Chemistry)</li>
           <li>Program Studi Fisika (Physics)</li>
@@ -101,7 +142,8 @@ function HasilTesMinat() {
           <li>Program Studi Mikrobiologi (Microbiology)</li>
           <li>Dll</li>
         </ul>
-        <p className="mt-4 font-semibold">Prospek Karir : </p>
+        <hr className="my-6 border-t border-gray-300" />
+        <p className="mt-4 font-semibold mb-2">Prospek Karir : </p>
         <ol className="list-decimal pl-4 space-y-2">
           <li>
             Instansi Negara
@@ -180,6 +222,7 @@ function HasilTesMinat() {
             </ol>
           </li>
         </ol>
+        <hr className="my-6 border-t border-gray-300" />
         <p className="text-xl mt-6 font-semibold">
           Grafik Hasil Uji Coba Minat
         </p>
