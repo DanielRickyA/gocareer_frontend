@@ -1,42 +1,33 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { useState, useMemo } from "react"; // Tambahkan useMemo
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-
-const tesMinatList = [
-  "Saya suka mempelajari kisah teladan tokoh agama",
-  "Saya suka mendengarkan lagulagu religi",
-  "Saya suka mempelajari kitab suci",
-  "Saya suka melakukan kegiatan ukur mengukur",
-  "Saya suka menggunakan hitungan, dalam memprediksi sesuatu",
-  "Saya menyukai grafik",
-  "Saya suka mengamati peristiwa alam",
-  "Saya suka melakukan percobaan ilmiah",
-  "Saya suka mengamati pertumbuhan tanaman",
-  "Saya suka mempelajari peta",
-  "Saya suka mempelajari budaya",
-  "Saya suka mempelajari tentang kegiatan ekonomi",
-  "Saya suka bermain peran",
-  "Saya suka berpidato",
-  "Saya suka menuangkan ide ke dalam hasil teknologi ",
-];
+import { dataTemp } from "./datatemp";
+import { getInterestDescription } from "./Helper";
 
 function TesMinat() {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
   const [name, setName] = useState<string>("");
-  const perPage = 5;
 
-  const startIndex = page * perPage;
-  const currentQuestions = tesMinatList.slice(startIndex, startIndex + perPage);
+  const categories = useMemo(() => {
+    return [...new Set(dataTemp.map((item) => item.cat))];
+  }, []);
 
-  const totalPages = Math.ceil(tesMinatList.length / perPage);
+  const currentCategory = categories[page];
+  const totalPages = categories.length;
+
+  const currentQuestions = useMemo(() => {
+    return dataTemp
+      .map((item, index) => ({ ...item, globalIndex: index }))
+      .filter((item) => item.cat === currentCategory);
+  }, [currentCategory]);
 
   const isAllAnswered = currentQuestions.every(
-    (_, idx) => answers[startIndex + idx] !== undefined
+    (question) => answers[question.globalIndex] !== undefined
   );
 
   const handleAnswer = (questionIndex: number, value: number) => {
@@ -49,7 +40,6 @@ function TesMinat() {
   const handleNext = () => {
     if (isAllAnswered) {
       setPage((prev) => prev + 1);
-
       setTimeout(() => {
         const element = document.getElementById("Soal");
         if (element) {
@@ -65,8 +55,8 @@ function TesMinat() {
   };
 
   const handleSubmit = () => {
-    if (name == "") {
-      toast.error("Nama Perserta Belum diisi!");
+    if (name === "") {
+      toast.error("Nama Peserta Belum diisi!");
       setTimeout(() => {
         const element = document.getElementById("nama");
         if (element) {
@@ -75,11 +65,83 @@ function TesMinat() {
         }
       }, 100);
     } else {
-      toast.success("Data Berhasi disubmit");
-      navigate("/uji-coba-minat/hasil");
+      const categoryLimits: {
+        [key: string]: { minScore: number; maxScore: number };
+      } = {};
+
+      categories.forEach((cat) => {
+        const totalBobot = dataTemp
+          .filter((q) => q.cat === cat)
+          .reduce((sum, q) => sum + q.bobot, 0);
+
+        // Skor terendah adalah jika semua jawaban dikalikan -3
+        // Skor tertinggi adalah jika semua jawaban dikalikan +3
+        categoryLimits[cat] = {
+          minScore: totalBobot * -3,
+          maxScore: totalBobot * 3,
+        };
+      });
+
+      const rawUserScores: { [key: string]: number } = {
+        AGM: 0,
+        AGR: 0,
+        BDB: 0,
+        BDM: 0,
+        IPA: 0,
+        IPS: 0,
+        KES: 0,
+        KOR: 0,
+        MTK: 0,
+        PDK: 0,
+        PRW: 0,
+        SDK: 0,
+        TDR: 0,
+        TIK: 0,
+      };
+
+      const scoreMultiplier: { [key: number]: number } = {
+        1: -3,
+        2: -2,
+        3: -1,
+        4: 0,
+        5: 1,
+        6: 2,
+        7: 3,
+      };
+
+      dataTemp.forEach((question, index) => {
+        const userAnswer = answers[index];
+        if (userAnswer !== undefined) {
+          const multiplier = scoreMultiplier[userAnswer];
+          const score = multiplier * question.bobot;
+          rawUserScores[question.cat] += score;
+        }
+      });
+
+      const normalizedScores: { [key: string]: number } = {};
+
+      for (const cat in rawUserScores) {
+        const { minScore, maxScore } = categoryLimits[cat];
+        const userScore = rawUserScores[cat];
+
+        const scoreRange = maxScore - minScore;
+
+        if (scoreRange === 0) {
+          normalizedScores[cat] = 0;
+        } else {
+          const normalized = ((userScore - minScore) / scoreRange) * 100;
+          normalizedScores[cat] = Math.round(normalized);
+        }
+      }
+
+      toast.success("Data Berhasil disubmit");
       localStorage.setItem("name", name);
+      localStorage.setItem("testResults", JSON.stringify(normalizedScores));
+
+      navigate("/uji-coba-minat/hasil");
     }
   };
+
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
@@ -104,12 +166,15 @@ function TesMinat() {
           />
         </div>
         <div className="mt-8" id="Soal">
-          {currentQuestions.map((soal, index) => {
-            const globalIndex = startIndex + index;
+          <h2 className="text-2xl font-bold mb-6">
+            Kategori: {getInterestDescription(currentCategory)}
+          </h2>
+          {currentQuestions.map((item) => {
+            const globalIndex = item.globalIndex;
             return (
-              <>
-                <div className="mb-8" id={soal}>
-                  <p className="text-lg font-semibold">{soal}</p>
+              <div key={globalIndex}>
+                <div className="mb-8" id={item.soal}>
+                  <p className="text-lg font-semibold">{item.soal}</p>
                   <div className="flex items-center justify-start gap-8 mt-8">
                     <div className="flex flex-col items-center">
                       <div className="flex space-x-4 items-center">
@@ -117,7 +182,6 @@ function TesMinat() {
                         <span className="hidden md:block text-sm lg:text-base">
                           Tidak Setuju
                         </span>
-
                         <div className="w-full">
                           {/* Label bawah khusus untuk mobile */}
                           <div className="flex justify-between w-full mb-2 md:hidden px-1">
@@ -128,16 +192,15 @@ function TesMinat() {
                           <div className="flex space-x-2 md:space-x-4 items-end justify-center">
                             {[1, 2, 3, 4, 5, 6, 7].map((num) => {
                               const sizes = [
-                                "w-7 h-7", // 1
-                                "w-8 h-8", // 2
-                                "w-9 h-9", // 3
-                                "w-10 h-10", // 4
-                                "w-12 h-12", // 5
-                                "w-14 h-14", // 6
-                                "w-16 h-16", // 7
+                                "w-7 h-7",
+                                "w-8 h-8",
+                                "w-9 h-9",
+                                "w-10 h-10",
+                                "w-12 h-12",
+                                "w-14 h-14",
+                                "w-16 h-16",
                               ];
                               const sizeClass = sizes[num - 1];
-
                               let borderColor = "border-gray-400";
                               let checkedColor =
                                 "peer-checked:bg-gray-400 peer-checked:border-gray-400";
@@ -167,7 +230,6 @@ function TesMinat() {
                                     }
                                     className="hidden peer"
                                   />
-
                                   <div
                                     className={`rounded-full border-2 ${sizeClass} ${borderColor} ${checkedColor} transition`}
                                   />
@@ -178,14 +240,6 @@ function TesMinat() {
                               );
                             })}
                           </div>
-
-                          {/* <div className="flex justify-between w-full mt-4 px-9">
-                            {[1, 2, 3, 4, 5, 6, 7].map((num) => (
-                              <span key={num} className="text-xs font-semibold">
-                                {num}
-                              </span>
-                            ))}
-                          </div> */}
                         </div>
 
                         {/* Label kanan (desktop) */}
@@ -197,7 +251,7 @@ function TesMinat() {
                   </div>
                 </div>
                 <Separator className="my-8" />
-              </>
+              </div>
             );
           })}
           {/* Navigasi */}
@@ -213,7 +267,6 @@ function TesMinat() {
             >
               Back
             </button>
-
             {page === totalPages - 1 ? (
               // Kalau sudah halaman terakhir
               <button
