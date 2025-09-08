@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { useState, useMemo } from "react"; // Tambahkan useMemo
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { dataTemp } from "./datatemp";
+import { dataTemp } from "./DataTemp";
 import { getInterestDescription } from "./Helper";
 
 function TesMinat() {
