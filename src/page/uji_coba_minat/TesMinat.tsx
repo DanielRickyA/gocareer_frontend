@@ -5,7 +5,7 @@ import { useState, useMemo } from "react"; // Tambahkan useMemo
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { dataTemp } from "./DataTemp";
-import { getInterestDescription } from "./Helper";
+// import { getInterestDescription } from "./Helper";
 
 function TesMinat() {
   const navigate = useNavigate();
@@ -166,9 +166,9 @@ function TesMinat() {
           />
         </div>
         <div className="mt-8" id="Soal">
-          <h2 className="text-2xl font-bold mb-6">
+          {/* <h2 className="text-2xl font-bold mb-6">
             Kategori: {getInterestDescription(currentCategory)}
-          </h2>
+          </h2> */}
           {currentQuestions.map((item) => {
             const globalIndex = item.globalIndex;
             return (
