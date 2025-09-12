@@ -85,67 +85,76 @@ function HasilTesMinat() {
             Cetak Kartu
           </Button>
         </div>
-        <div className="LPP">
-          <div className="flex justify-between items-center">
-            <p className="text-xl mt-4 print:mt-0">
-              Hasil Uji Coba Minat untuk Peserta{" "}
-              <span className="font-semibold text-primary">{name}</span>.
+        <div className="LPP ">
+          <div className="m-5">
+            <div className="flex justify-between items-center relative z-50">
+              <p className="text-xl mt-4 print:mt-0">
+                Hasil Uji Coba Minat untuk Peserta{" "}
+                <span className="font-semibold text-primary">{name}</span>.
+              </p>
+              <p>{formatDate(date)}</p>
+            </div>
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
+              <CardContent>
+                <p className="text-xl font-semibold ">
+                  Minat bakat yang paling sesuai untuk kamu:
+                </p>
+                <p className="text-4xl font-semibold mt-4 text-primary">
+                  {topCategories
+                    .map((item) => getInterestDescription(item))
+                    .join(", ")}
+                </p>
+              </CardContent>
+            </Card>
+            <p className="text-xl mt-6 font-semibold">
+              Deskripsi Hasil Uji Coba Minat
             </p>
-            <p>{formatDate(date)}</p>
+            <p className="mt-2">
+              Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
+              {topCategories
+                .map((item) => getInterestDescription2(item))
+                .join(", ")}
+            </p>
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
+              <CardContent>
+                <p>
+                  <span className="font-semibold text-green-800">
+                    Area Belajar{" "}
+                  </span>
+                  Sekolah Menengah Atas/Kejuruan:{" "}
+                  <span className="font-semibold">
+                    Kimia, Fisika, Biologi, Biokimia, dll
+                  </span>
+                </p>
+                <p className="mt-2">
+                  Bidang yang{" "}
+                  <span className="font-semibold text-red-800">
+                    Tidak Kamu Kuasai{" "}
+                  </span>
+                  pada Sekolah Menengah Atas/Kejuruan:{" "}
+                  <span className="font-semibold">
+                    {chartData
+                      .filter(
+                        (item) =>
+                          item.name !== topCategories[0] && item.point !== 0
+                      )
+                      .sort((a, b) => a.point - b.point)
+                      .slice(0, 3)
+                      .map((item) => getInterestDescription2(item.name))
+                      .join(", ") || "Tidak ada"}
+                  </span>
+                </p>
+              </CardContent>
+            </Card>
           </div>
-          <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 ">
-            <CardContent>
-              <p className="text-xl font-semibold ">
-                Minat bakat yang paling sesuai untuk kamu:
-              </p>
-              <p className="text-4xl font-semibold mt-4 text-primary">
-                {topCategories
-                  .map((item) => getInterestDescription(item))
-                  .join(", ")}
-              </p>
-            </CardContent>
-          </Card>
-          <p className="text-xl mt-6 font-semibold">
-            Deskripsi Hasil Uji Coba Minat
-          </p>
-          <p className="mt-2">
-            Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
-            {topCategories
-              .map((item) => getInterestDescription2(item))
-              .join(", ")}
-          </p>
-          <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4">
-            <CardContent>
-              <p>
-                <span className="font-semibold text-green-800">
-                  Area Belajar{" "}
-                </span>
-                Sekolah Menengah Atas/Kejuruan:{" "}
-                <span className="font-semibold">
-                  Kimia, Fisika, Biologi, Biokimia, dll
-                </span>
-              </p>
-              <p className="mt-2">
-                Bidang yang{" "}
-                <span className="font-semibold text-red-800">
-                  Tidak Kamu Kuasai{" "}
-                </span>
-                pada Sekolah Menengah Atas/Kejuruan:{" "}
-                <span className="font-semibold">
-                  {chartData
-                    .filter(
-                      (item) =>
-                        item.name !== topCategories[0] && item.point !== 0
-                    )
-                    .sort((a, b) => a.point - b.point)
-                    .slice(0, 3)
-                    .map((item) => getInterestDescription2(item.name))
-                    .join(", ") || "Tidak ada"}
-                </span>
-              </p>
-            </CardContent>
-          </Card>
+          <div className="absolute top-[10%] right-0 h-[10%] w-[15%] z-30 hidden print:block">
+            <img src="/assets1.png" alt="" className="w-full" />
+          </div>
+          <div className="absolute bottom-[3%] left-0 h-[5%] w-[12%] z-50 hidden print:block">
+            <img src="/assets2.png" alt="" className="w-full" />
+          </div>
         </div>
+
         <div className="print:hidden">
           <hr className="my-6 border-t border-gray-300" />
           <p className="mt-4 font-semibold mb-2">Jenjang Perguruan Tinggi : </p>

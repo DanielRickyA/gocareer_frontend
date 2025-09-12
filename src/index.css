@@ -25,6 +25,7 @@ body {
 @media print {
   @page {
     size: A5 landscape; /* atau portrait */
+    margin: 0;
   }
   html,
   body {
