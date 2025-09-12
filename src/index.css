@@ -21,17 +21,27 @@ body {
 .animate-bounce-smooth:hover {
   animation: bounce-smooth 1s ease-in-out infinite;
 }
+
 @media print {
+  @page {
+    size: A5 landscape; /* atau portrait */
+  }
   html,
   body {
     height: auto !important;
     min-height: auto !important;
+    margin: 0 !important; /* pastikan tidak ada margin bawaan */
+    padding: 0 !important;
   }
 
-  /* pastikan kontainer print tidak pakai min-height */
+  /* khusus area cetak */
   .LPP {
     min-height: auto !important;
     height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    /* cegah halaman kosong */
     page-break-after: avoid;
     page-break-before: avoid;
     page-break-inside: avoid;
@@ -40,10 +50,17 @@ body {
     break-inside: avoid;
   }
 
-  /* hapus margin/padding bawah yang bikin nambah halaman kosong */
+  /* rapikan elemen terakhir supaya tidak dorong ke halaman baru */
   .LPP > *:last-child {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+
+  /* opsional: sembunyikan nav/header/footer biar nggak ikut */
+  nav,
+  header,
+  footer {
+    display: none !important;
   }
 }
 
