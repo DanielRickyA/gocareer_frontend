@@ -36,7 +36,7 @@ function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black
+      className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black print:hidden
         ${
           scrolled || location.pathname != "/home"
             ? "dark:border-gray-800 dark:bg-gray-950 border-[0.5px] border-b-black/10 shadow-sm"

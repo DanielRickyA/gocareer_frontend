@@ -21,12 +21,30 @@ body {
 .animate-bounce-smooth:hover {
   animation: bounce-smooth 1s ease-in-out infinite;
 }
+@media print {
+  html,
+  body {
+    height: auto !important;
+    min-height: auto !important;
+  }
 
-.recharts-wrapper:focus {
-  outline: none !important;
-}
-.recharts-surface:focus {
-  outline: none !important;
+  /* pastikan kontainer print tidak pakai min-height */
+  .LPP {
+    min-height: auto !important;
+    height: auto !important;
+    page-break-after: avoid;
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    break-after: avoid;
+    break-before: avoid;
+    break-inside: avoid;
+  }
+
+  /* hapus margin/padding bawah yang bikin nambah halaman kosong */
+  .LPP > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }
 
 @custom-variant dark (&:is(.dark *));
