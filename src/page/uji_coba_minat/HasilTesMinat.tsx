@@ -86,7 +86,7 @@ function HasilTesMinat() {
           </Button>
         </div>
         <div className="LPP ">
-          <div className="m-5">
+          <div className="print:m-5">
             <div className="flex justify-between items-center relative z-50">
               <p className="text-xl mt-4 print:mt-0">
                 Hasil Uji Coba Minat untuk Peserta{" "}
