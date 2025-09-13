@@ -82,7 +82,7 @@ function HasilTesMinat() {
             onClick={() => window.print()}
           >
             <Printer />
-            Cetak Kartu
+            Cetak Hasil
           </Button>
         </div>
         <div className="LPP ">
