@@ -54,7 +54,7 @@ function HasilTesMinat() {
     setName(localName ?? "");
   }, []);
 
-  const date = new Date().toLocaleString();
+  const date = new Date().toISOString();
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
