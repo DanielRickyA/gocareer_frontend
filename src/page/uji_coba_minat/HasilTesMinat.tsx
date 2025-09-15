@@ -12,7 +12,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
-import { getInterestDescription, getInterestDescription2 } from "./Helper";
+import { getAreaBelajar, getInterestDescription, getInterestDescription2, getJenjangPT, getKarirLain, getKarirNegara, getKarirSwasta } from "./Helper";
 import { Button } from "@/components/ui/button";
 
 interface ChartData {
@@ -24,6 +24,10 @@ function HasilTesMinat() {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [topCategories, setTopCategories] = useState<string[]>([]);
+  const [dataProgramStudi, setDataProgramStudi] = useState<string[]>([]);
+  const [dataKarirNegara, setDataKarirNegara] = useState<string[]>([]);
+  const [dataKarirSwasta, setDataKarirSwasta] = useState<string[]>([]);
+  const [dataKarirLain, setDataKarirLain] = useState<string[]>([]);
   const [name, setName] = useState<string>("");
   const isMobile = useIsMobile();
 
@@ -45,14 +49,25 @@ function HasilTesMinat() {
         .filter((item) => item.point === maxPoint)
         .map((item) => item.name);
 
-      setTopCategories(topCategories);
+      const slicedTopCategories = topCategories.slice(0, 3);
+      if (topCategories.length > 3) {
+        alert("Hasil tes minat tidak valid. Silakan coba lagi.");
+        navigate("/uji-coba-minat");
+        return;
+      }
+
+      setTopCategories(slicedTopCategories);
+      setDataProgramStudi(topCategories.flatMap((item) => getJenjangPT(item)));
+      setDataKarirNegara(topCategories.flatMap((item) => getKarirNegara(item)));
+      setDataKarirSwasta(topCategories.flatMap((item) => getKarirSwasta(item)));
+      setDataKarirLain(topCategories.flatMap((item) => getKarirLain(item)));
       setChartData(formattedData);
     } else {
       setChartData([]);
     }
 
     setName(localName ?? "");
-  }, []);
+  }, [navigate]);
 
   const date = new Date().toISOString();
 
@@ -123,7 +138,12 @@ function HasilTesMinat() {
                   </span>
                   Sekolah Menengah Atas/Kejuruan:{" "}
                   <span className="font-semibold">
-                    Kimia, Fisika, Biologi, Biokimia, dll
+                    {topCategories
+                      .map((item) => {
+                        const area = getAreaBelajar(item);
+                        return area;
+                      })
+                      .join(", ")}
                   </span>
                 </p>
                 <p className="mt-2">
@@ -159,13 +179,9 @@ function HasilTesMinat() {
           <hr className="my-6 border-t border-gray-300" />
           <p className="mt-4 font-semibold mb-2">Jenjang Perguruan Tinggi : </p>
           <ul className="list-decimal pl-4 space-y-2">
-            <li>Program Studi Kimia (Chemistry)</li>
-            <li>Program Studi Fisika (Physics)</li>
-            <li>Program Studi Biologi (Biology) </li>
-            <li>Program Studi Biokimia (Biochemistry)</li>
-            <li>Program Studi Oseanografi (Oceanography)</li>
-            <li>Program Studi Ilmu Kelautan (Marine Science)</li>
-            <li>Program Studi Mikrobiologi (Microbiology)</li>
+            {dataProgramStudi.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
             <li>Dll</li>
           </ul>
           <hr className="my-6 border-t border-gray-300" />
@@ -174,79 +190,27 @@ function HasilTesMinat() {
             <li>
               Instansi Negara
               <ol className="list-[lower-alpha] pl-6 mt-2 space-y-1">
-                <li>
-                  Peneliti di lembaga penelitian Negara, seperti LIPI, BATAN,
-                  dan lain-lain
-                </li>
-                <li>Badan Pengawas Obat-Obatan dan Makanan (BPOM)</li>
-                <li>
-                  Badan Usaha Milik Negara (BUMN) bidang perminyakan dan gas
-                  bumi, serta pertambangan seperti: PT. Pertamina, PT.
-                  Perusahaan Gas Negara, PT. Aneka Tambang, PT. Tambang Batubara
-                  Bukit Asam, PT. Timah, dll.
-                </li>
-                <li>
-                  Badan Usaha Milik Negara (BUMN) bidang transportasi, teknologi
-                  dan telekomunikasi, seperti: PT. Angkasa Pura, PT. KAI, PT.
-                  Pelayaran Nasional Indonesia, PT. Energy Management Indonesia,
-                  PT. PLN, PT. PDAM, PT. Pindad, PT. Dirgantara Indonesia, PT.
-                  Telekomunikasi Indonesia, dll.
-                </li>
-                <li>
-                  Lembaga riset dan pengembangan, seperti: LIPI, BATAN, BPPT
-                </li>
-                <li>
-                  Pegawai Negeri Sipil (PNS) di Departemen Pertanian, Departemen
-                  Peternakan, Departemen Kelautan dan Perikanan, Departemen
-                  Kesehatan, Kementerian Lingkungan Hidup
-                </li>
-                <li>
-                  Lembaga penelitian milik negara, seperti: Lembaga Ilmu
-                  Pengetahuan Indonesia (LIPI), dll.
-                </li>
+                {dataKarirNegara.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ol>
             </li>
 
             <li>
               Industri Swasta
               <ol className="list-[lower-alpha] pl-6 mt-2 space-y-1">
-                <li>Industri di bidang makanan</li>
-                <li>Industri obat-obatan</li>
-                <li>Industri kosmetik</li>
-                <li>
-                  Industri yang membutuhkan ilmu kimia seperti: perusahaan
-                  pupuk, perusahaan semen, perusahaan tekstil, dll.
-                </li>
-                <li>
-                  Staf ahli di perusahaan peternakan, perikanan, dan pertanian
-                </li>
-                <li>
-                  Staf ahli di perusahaan bahan makanan seperti: PT. Nestle, PT.
-                  Indofood, PT. Unilever, dll
-                </li>
-                <li>
-                  Staf ahli di perusahaan obat-obatan, seperti: PT. Bio Farma,
-                  PT. Kimia Farma, PT. Indo Farma, dll
-                </li>
-                <li>Staf ahli di kebun binatang</li>
+                {dataKarirSwasta.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ol>
             </li>
 
             <li>
               Lain-lain
               <ol className="list-[lower-alpha] pl-6 mt-2 space-y-1">
-                <li>
-                  Wirausaha dalam pembuatan makanan, kosmetik, atau pupuk.
-                </li>
-                <li>
-                  Wirausaha dalam pembuatan alat-alat yang menggunakan prinsip
-                  keilmuan fisika, seperti: pembuatan alat-alat pabrik,
-                  pembuatan peralatan-peralatan praktik di laboratorium, dll.
-                </li>
-                <li>
-                  Organisasi lingkungan hidup seperti WHO, WWF, Flora Fauna
-                  International, dll
-                </li>
+                {dataKarirLain.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ol>
             </li>
           </ol>
@@ -254,7 +218,7 @@ function HasilTesMinat() {
           <p className="text-xl mt-6 font-semibold">
             Grafik Hasil Uji Coba Minat
           </p>
-          <div className="h-[300px] md:h-[450px] mt-4">
+          <div className="h-[700px] md:h-[450px] mt-4 flex flex-col md:flex-row items-center">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart
                 cx={`${isMobile ? "50%" : "35%"}`}
@@ -276,6 +240,20 @@ function HasilTesMinat() {
                 />
               </RadarChart>
             </ResponsiveContainer>
+            <div className="w-fit h-fit md:w-1/2 bg-[#F9FAFC] px-10 py-5 rounded-lg">
+              <p className="font-bold -ml-4">Keterangan:</p>
+              <p className="mt-2">
+                {chartData
+                  .filter((item) => item.point !== 0)
+                  .map((item) => {
+                    return (
+                      <li>
+                        <b>{item.name}</b>: {getInterestDescription2(item.name)}
+                      </li>
+                    );
+                  })}
+              </p>
+            </div>
           </div>
         </div>
       </div>
