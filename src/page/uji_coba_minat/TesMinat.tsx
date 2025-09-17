@@ -184,7 +184,7 @@ function TesMinat() {
                         </span>
                         <div className="w-full">
                           {/* Label bawah khusus untuk mobile */}
-                          <div className="flex justify-between w-full mb-2 md:hidden px-1">
+                          <div className="flex justify-between w-full mb-2 md:hidden px-1 ">
                             <span className="text-xs">Tidak Setuju</span>
                             <span className="text-xs">Setuju</span>
                           </div>
@@ -192,13 +192,13 @@ function TesMinat() {
                           <div className="flex space-x-2 md:space-x-4 items-end justify-center">
                             {[1, 2, 3, 4, 5, 6, 7].map((num) => {
                               const sizes = [
+                                "w-6 h-6",
                                 "w-7 h-7",
                                 "w-8 h-8",
                                 "w-9 h-9",
                                 "w-10 h-10",
+                                "w-11 h-11",
                                 "w-12 h-12",
-                                "w-14 h-14",
-                                "w-16 h-16",
                               ];
                               const sizeClass = sizes[num - 1];
                               let borderColor = "border-gray-400";

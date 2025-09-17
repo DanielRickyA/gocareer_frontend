@@ -12,7 +12,15 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from "recharts";
-import { getAreaBelajar, getInterestDescription, getInterestDescription2, getJenjangPT, getKarirLain, getKarirNegara, getKarirSwasta } from "./Helper";
+import {
+  getAreaBelajar,
+  getInterestDescription,
+  getInterestDescription2,
+  getJenjangPT,
+  getKarirLain,
+  getKarirNegara,
+  getKarirSwasta,
+} from "./Helper";
 import { Button } from "@/components/ui/button";
 
 interface ChartData {
@@ -56,12 +64,15 @@ function HasilTesMinat() {
         return;
       }
 
+      const sortedData = [...formattedData].sort((a, b) => b.point - a.point);
+      const top6Data = sortedData.slice(0, 6);
+
       setTopCategories(slicedTopCategories);
       setDataProgramStudi(topCategories.flatMap((item) => getJenjangPT(item)));
       setDataKarirNegara(topCategories.flatMap((item) => getKarirNegara(item)));
       setDataKarirSwasta(topCategories.flatMap((item) => getKarirSwasta(item)));
       setDataKarirLain(topCategories.flatMap((item) => getKarirLain(item)));
-      setChartData(formattedData);
+      setChartData(top6Data);
     } else {
       setChartData([]);
     }
