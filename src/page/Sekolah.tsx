@@ -18,6 +18,7 @@ import Lottie from "lottie-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import noData from "../assets/Emptybox.json";
+import { Card, CardContent } from "@/components/ui/card";
 function Sekolah() {
   const [tab, setTab] = useState<string>("sma");
   const [kabupaten, setKabupaten] = useState<string>("0");
@@ -167,22 +168,77 @@ function Sekolah() {
             {isLoading ? (
               <SkeletonSekolah />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                {filteredData.length == 0 ? (
-                  <div className="flex flex-col justify-center items-center w-full h-full mt-6 col col-span-2">
+              <div className="mt-2">
+                {filteredData.length === 0 ? (
+                  <div className="flex flex-col justify-center items-center w-full h-full mt-6">
                     <Lottie
                       animationData={noData}
                       className="mx-auto w-[40%]"
                     />
-                    <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+                    <p className="text-xl font-semibold mt-4">Data Kosong</p>
                   </div>
                 ) : (
-                  filteredData?.map((item: SekolahResponseModel, index) => (
-                    <div key={index}>
-                      <CardSekolah item={item} sekolah="sma" />
-                      <CardSekolah item={item} sekolah="smk" />
-                    </div>
-                  ))
+                  filteredData.map((item: SekolahResponseModel, index) => {
+                    const smaList = item.sma || [];
+                    const smkList = item.smk || [];
+
+                    return (
+                      <div
+                        key={index}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
+                      >
+                        {/* Kolom SMA */}
+                        <div>
+                          <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                            <p className="font-semibold">{item.kabupaten}</p>
+                          </div>
+                          <div className="mt-2">
+                            {smaList.length === 0 ? (
+                              <p className="text-gray-400 italic">
+                                Tidak ada data
+                              </p>
+                            ) : (
+                              smaList.map((sma) => (
+                                <Card
+                                  className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                                  key={sma.id}
+                                >
+                                  <CardContent className="flex flex-col h-full">
+                                    <p className="my-2">{sma.nama}</p>
+                                  </CardContent>
+                                </Card>
+                              ))
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Kolom SMK */}
+                        <div>
+                          <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                            <p className="font-semibold">{item.kabupaten}</p>
+                          </div>
+                          <div className="mt-2">
+                            {smkList.length === 0 ? (
+                              <p className="text-gray-400 italic">
+                                Tidak ada data
+                              </p>
+                            ) : (
+                              smkList.map((smk) => (
+                                <Card
+                                  className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                                  key={smk.id}
+                                >
+                                  <CardContent className="flex flex-col h-full">
+                                    <p className="my-2">{smk.nama}</p>
+                                  </CardContent>
+                                </Card>
+                              ))
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             )}
