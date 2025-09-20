@@ -24,7 +24,7 @@ function App() {
             <Route path="home" element={<LandingPage />} />
             <Route path="uji-coba-minat" element={<UjiCobaMinat />} />
             <Route path="uji-coba-minat/tes" element={<TesMinat />} />
-          <Route path="uji-coba-minat/hasil" element={<HasilTesMinat />} />
+            <Route path="uji-coba-minat/hasil" element={<HasilTesMinat />} />
             <Route path="minat-bakat" element={<MinatBakat />} />
             <Route path="jurusan" element={<Jurusan />} />
             <Route path="jurusan/:sekolah" element={<JurusanList />} />

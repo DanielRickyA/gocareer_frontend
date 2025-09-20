@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Lottie from "lottie-react";
 import noData from "../../assets/Emptybox.json";
+import { slugify } from "@/lib/utils";
 
 function JurusanList() {
   const { sekolah } = useParams();
@@ -74,8 +75,8 @@ function JurusanList() {
       </div>
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-6">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3].map(() => (
-            <div>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13].map((index) => (
+            <div key={index}>
               <Skeleton className="h-[60px] w-full rounded-xl" />
             </div>
           ))}
@@ -92,7 +93,13 @@ function JurusanList() {
             {filteredJurusan
               ?.filter((j) => j.tipe_sekolah == sekolah)
               .map((jurusan: JurusanResponseModel) => (
-                <Link to={`${jurusan.id}`} key={jurusan.id} className="h-full">
+                <Link
+                  to={`/jurusan/${sekolah}/${slugify(jurusan.nama)}-${
+                    jurusan.id
+                  }`}
+                  key={jurusan.id}
+                  className="h-full"
+                >
                   <Card className="bg-[#F9FAFC] flex flex-col shadow-none border-[0.3px] z-20 py-4 px-0 h-full">
                     <CardContent className="px-4">
                       <p className="text-sm">{jurusan.nama}</p>

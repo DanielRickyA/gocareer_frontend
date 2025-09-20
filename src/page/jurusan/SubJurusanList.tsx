@@ -9,18 +9,25 @@ import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import noData from "../../assets/Emptybox.json";
+import { formatTitle } from "@/lib/utils";
 function SubJurusanList() {
   const { sekolah, jurusan } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  // pastikan jurusan param ada dan convert ke number
-  const jurusanId = jurusan ? Number(jurusan) : null;
+  function parseJurusan(slug: string) {
+    const parts = slug.split("-"); 
+    const id = parts.pop(); 
+    const nama = parts.join("-"); 
+    return { nama, id: id ? Number(id) : null };
+  }
+
+  const parsedJurusan = jurusan ? parseJurusan(jurusan) : null;
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["itemjurusan", jurusanId],
-    queryFn: () => getItemJurusan(jurusanId as number),
-    enabled: !!jurusanId,
+    queryKey: ["itemjurusan", parsedJurusan?.id],
+    queryFn: () => getItemJurusan(parsedJurusan?.id as number),
+    enabled: !!parsedJurusan?.id,
     retry: false,
   });
 
@@ -48,9 +55,7 @@ function SubJurusanList() {
       <div className="flex flex-col md:flex-row justify-start md:justify-between items-start md:items-end mt-2 mb-4 gap-4">
         <div>
           <p className="font-semibold text-left text-3xl ">
-            {sekolah == "sma"
-              ? "Pendidikan Agama dan Budi Pekerti"
-              : "Teknik Komputer dan Jaringan"}
+            {formatTitle(parsedJurusan?.nama)}
           </p>
         </div>
         <div className="grid w-full max-w-sm items-center gap-2">
