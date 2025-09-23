@@ -18,7 +18,7 @@ function Nav() {
     // { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
     // { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
     // { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
-    // { id: "/tentang-kami", label: "Tentang Kami", location: "/tentang-kami" },
+    { id: "/tentang-kami", label: "Tentang Kami", location: "/tentang-kami" },
   ];
 
   useEffect(() => {
