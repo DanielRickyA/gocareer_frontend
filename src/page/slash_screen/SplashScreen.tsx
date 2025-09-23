@@ -16,7 +16,8 @@ function SplashScreen() {
         const next = prev + increment;
         if (next >= 100) {
           clearInterval(interval);
-          navigate("/home"); // redirect ke /home
+          // navigate("/home"); // redirect ke /home
+          navigate("/asesmen-minat"); // redirect ke /home
         }
         return next;
       });

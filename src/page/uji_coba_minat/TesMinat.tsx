@@ -138,7 +138,7 @@ function TesMinat() {
       localStorage.setItem("name", name);
       localStorage.setItem("testResults", JSON.stringify(normalizedScores));
 
-      navigate("/uji-coba-minat/hasil");
+      navigate("/asesmen-minat/hasil");
     }
   };
 
@@ -148,7 +148,7 @@ function TesMinat() {
         <div className="flex gap-6 items-center justify-start">
           <img src="/icon1.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">
-            Uji Coba Minat
+            Asesmen Minat
           </h1>
         </div>
         <p className="text-base md:text-xl mt-4 text-description text-justify">

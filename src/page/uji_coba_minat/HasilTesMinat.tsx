@@ -60,7 +60,7 @@ function HasilTesMinat() {
       const slicedTopCategories = topCategories.slice(0, 3);
       if (topCategories.length > 3) {
         alert("Hasil tes minat tidak valid. Silakan coba lagi.");
-        navigate("/uji-coba-minat");
+        navigate("/asesmen-minat");
         return;
       }
 
@@ -98,7 +98,7 @@ function HasilTesMinat() {
         <div className="flex justify-between items-center">
           <div
             className="flex justif-start items-center gap-2 cursor-pointer print:hidden"
-            onClick={() => navigate("/uji-coba-minat")}
+            onClick={() => navigate("/asesmen-minat")}
           >
             <CircleArrowLeft size={16} />
             <p>Kembali</p>
@@ -115,7 +115,7 @@ function HasilTesMinat() {
           <div className="print:m-5">
             <div className="flex justify-between items-center relative z-50">
               <p className="text-xl mt-4 print:mt-0">
-                Hasil Uji Coba Minat untuk Peserta{" "}
+                Hasil Asesmen Minat untuk Peserta{" "}
                 <span className="font-semibold text-primary">{name}</span>.
               </p>
               <p>{formatDate(date)}</p>
@@ -133,7 +133,7 @@ function HasilTesMinat() {
               </CardContent>
             </Card>
             <p className="text-xl mt-6 font-semibold">
-              Deskripsi Hasil Uji Coba Minat
+              Deskripsi Hasil Asesmen Minat
             </p>
             <p className="mt-2">
               Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
@@ -227,7 +227,7 @@ function HasilTesMinat() {
           </ol>
           <hr className="my-6 border-t border-gray-300" />
           <p className="text-xl mt-6 font-semibold">
-            Grafik Hasil Uji Coba Minat
+            Grafik Hasil Asesmen Minat
           </p>
           <div className="h-[700px] md:h-[450px] mt-4 flex flex-col md:flex-row items-center">
             <ResponsiveContainer width="100%" height="100%">

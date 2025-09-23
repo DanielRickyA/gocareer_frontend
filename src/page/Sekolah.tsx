@@ -58,9 +58,12 @@ function Sekolah() {
   }, [data, searchTerm]);
 
   if (isError) {
-    const err = error as { message: string };
-    return toast.error(err.message);
+    const message =
+      error instanceof Error ? error.message : "Terjadi kesalahan";
+    toast.error(message);
+    return null;
   }
+
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">

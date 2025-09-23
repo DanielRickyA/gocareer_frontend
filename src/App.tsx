@@ -22,9 +22,9 @@ function App() {
           <Route path="/" index element={<SplashScreen />}></Route>
           <Route path="/*" element={<Layout />}>
             <Route path="home" element={<LandingPage />} />
-            <Route path="uji-coba-minat" element={<UjiCobaMinat />} />
-            <Route path="uji-coba-minat/tes" element={<TesMinat />} />
-            <Route path="uji-coba-minat/hasil" element={<HasilTesMinat />} />
+            <Route path="asesmen-minat" element={<UjiCobaMinat />} />
+            <Route path="asesmen-minat/tes" element={<TesMinat />} />
+            <Route path="asesmen-minat/hasil" element={<HasilTesMinat />} />
             <Route path="minat-bakat" element={<MinatBakat />} />
             <Route path="jurusan" element={<Jurusan />} />
             <Route path="jurusan/:sekolah" element={<JurusanList />} />

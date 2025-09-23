@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 const fiturList = [
   // {
-  //   title: "Uji Coba Minat",
+  //   title: "Asesmen Minat",
   //   description:
   //     "Kenali minat belajarmu lewat tes sederhana dan akurat. Biar kamu nggak salah pilih jurusan!",
   //   icon: "/icon1.png",
-  //   link: "/uji-coba-minat",
+  //   link: "/asesmen-minat",
   // },
   {
     title: "Minat Bakat",

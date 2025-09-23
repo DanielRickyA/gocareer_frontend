@@ -9,7 +9,7 @@ function UjiCobaMinat() {
         <div className="flex gap-6 items-center justify-center ">
           <img src="/icon1.png" alt="" className="hidden sm:block" />
           <h1 className="text-3xl md:text-7xl text-left font-bold">
-            Uji Coba Minat
+            Asesmen Minat
           </h1>
         </div>
         <p className="text-2xl md:text-3xl mt-4 text-black/60 text-center">
@@ -19,9 +19,9 @@ function UjiCobaMinat() {
 
         <Button
           className="bg-primary text-lg md:text-2xl h-12 px-6 md:h-16 md:px-8 rounded-full mt-20 w-auto font-medium mx-auto flex justify-center"
-          onClick={() => navigate("/uji-coba-minat/tes")}
+          onClick={() => navigate("/asesmen-minat/tes")}
         >
-          Uji Coba Minat Sekarang
+          Asesmen Minat Sekarang
         </Button>
       </div>
       <div className="absolute top-[10%] right-0 h-[15%] w-[20%] md:w-[15%] z-0">
