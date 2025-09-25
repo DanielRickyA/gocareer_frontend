@@ -23,7 +23,7 @@ function LandingPage() {
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
                 </p>
-                <div className="grid grid-cols-2 md:flex gap-2 mt-4">
+                <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 mt-4">
                   <Button
                     className="bg-primary rounded-full lg:w-auto font-medium "
                     onClick={() => navigate("/asesmen-minat")}
@@ -31,13 +31,13 @@ function LandingPage() {
                     Asesmen Minat Sekarang
                   </Button>
                   <Button
-                    className="bg-primary rounded-full lg:w-auto font-medium block md:hidden"
+                    className="bg-primary rounded-full lg:w-auto font-medium block"
                     onClick={() => navigate("/minat-bakat")}
                   >
                     Macam Minat
                   </Button>
                   <Button
-                    className="bg-primary rounded-full lg:w-auto font-medium block md:hidden"
+                    className="bg-primary rounded-full lg:w-auto font-medium block"
                     onClick={() => navigate("/refrensi-karir")}
                   >
                     Refrensi Karir
