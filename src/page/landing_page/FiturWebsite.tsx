@@ -82,7 +82,7 @@ function FiturWebsite() {
       <div className="absolute top-[10%] right-0 h-[15%] w-[30%] md:w-[10%] z-0">
         <img src="/assets1.png" alt="" className="w-full" />
       </div>
-      <div className="absolute bottom-[5%] md:bottom-[40%] left-0 h-[15%] w-[30%] md:w-[15%] z-0">
+      <div className="absolute bottom-[10%] md:bottom-[40%] left-0 h-[15%] w-[30%] md:w-[15%] z-0">
         <img src="/assets2.png" alt="" className="w-full" />
       </div>
     </div>

@@ -8,16 +8,16 @@ function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const sections = [
-    // { id: "/home", label: "Beranda", location: "/home" },
+    { id: "/beranda", label: "Beranda", location: "/beranda" },
     {
       id: "/asesmen-minat",
       label: "Asesmen Minat",
       location: "/asesmen-minat",
     },
-    // { id: "/minat-bakat", label: "Minat Bakat", location: "/minat-bakat" },
-    // { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
-    // { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
-    // { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
+    { id: "/minat-bakat", label: "Minat Bakat", location: "/minat-bakat" },
+    { id: "/jurusan", label: "Jurusan", location: "/jurusan" },
+    { id: "/dukungan", label: "Dukungan", location: "/dukungan" },
+    { id: "/sekolah", label: "Sekolah", location: "/sekolah" },
     { id: "/tentang-kami", label: "Tentang Kami", location: "/tentang-kami" },
   ];
 
@@ -38,15 +38,14 @@ function Nav() {
     <header
       className={`sticky top-0 z-50 w-full transition duration-500 ease-in-out bg-white text-black print:hidden
         ${
-          scrolled || location.pathname != "/home"
+          scrolled || location.pathname != "/beranda"
             ? "dark:border-gray-800 dark:bg-gray-950 border-[0.5px] border-b-black/10 shadow-sm"
             : ""
         }
         `}
     >
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-8 ">
-        {/* <Link to="/home" className="flex items-center gap-2"> */}
-        <Link to="/asesmen-minat" className="flex items-center gap-2">
+        <Link to="/beranda" className="flex items-center gap-2">
           <p className="font-bold text-3xl">
             Go <span className="text-primary">Career</span>
           </p>

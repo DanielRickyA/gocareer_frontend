@@ -23,13 +23,32 @@ function LandingPage() {
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
                 </p>
-                <Button
-                  className="bg-primary rounded-full mt-4 w-full lg:w-auto font-medium "
-                  size={"lg"}
-                  onClick={() => navigate("/asesmen-minat")}
-                >
-                  Asesmen Minat Sekarang
-                </Button>
+                <div className="grid grid-cols-2 md:flex gap-2 mt-4">
+                  <Button
+                    className="bg-primary rounded-full lg:w-auto font-medium "
+                    onClick={() => navigate("/asesmen-minat")}
+                  >
+                    Asesmen Minat Sekarang
+                  </Button>
+                  <Button
+                    className="bg-primary rounded-full lg:w-auto font-medium block md:hidden"
+                    onClick={() => navigate("/minat-bakat")}
+                  >
+                    Macam Minat
+                  </Button>
+                  <Button
+                    className="bg-primary rounded-full lg:w-auto font-medium block md:hidden"
+                    onClick={() => navigate("/refrensi-karir")}
+                  >
+                    Refrensi Karir
+                  </Button>
+                  <Button
+                    className="bg-primary rounded-full lg:w-auto font-medium block"
+                    onClick={() => navigate("/rencana-karir")}
+                  >
+                    Rencana Karir harbatmu
+                  </Button>
+                </div>
               </div>
               <div className="min-h-full object-fill">
                 <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
