@@ -21,7 +21,7 @@ function UjiCobaMinat() {
           className="bg-primary text-lg md:text-2xl h-12 px-6 md:h-16 md:px-8 rounded-full mt-20 w-auto font-medium mx-auto flex justify-center"
           onClick={() => navigate("/asesmen-minat/tes")}
         >
-          Asesmen Minat Sekarang
+          Ikuti Asesmen Minat Sekarang
         </Button>
       </div>
       <div className="absolute top-[10%] right-0 h-[15%] w-[20%] md:w-[15%] z-0">
