@@ -49,7 +49,7 @@ function LandingPage() {
                   </Button>
                 </div>
               </div>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full sm:w-[75%]  lg:w-[50%]">
+              <div className="relative md:absolute bottom-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-[75%]  lg:w-[50%]">
                 <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
