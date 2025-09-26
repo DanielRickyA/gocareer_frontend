@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Printer } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 function RencanaKarir() {
   const [name, setName] = useState<string>("");
@@ -11,6 +12,24 @@ function RencanaKarir() {
   const [jurusan, setJurusan] = useState<string>("");
   const [prodi, setProdi] = useState<string>("");
   const [karir, setKarir] = useState<string>("");
+
+  const cetakCarrer = () => {
+    const fields = [
+      { key: "Nama", value: name },
+      { key: "Sekolah", value: sekolah },
+      { key: "Jurusan", value: jurusan },
+      { key: "Prodi", value: prodi },
+      { key: "Karir", value: karir },
+    ];
+
+    for (const field of fields) {
+      if (!field.value || field.value.trim() === "") {
+        return toast.error(`Mohon ${field.key} diisi dan tidak kosong`);
+      }
+    }
+
+    window.print();
+  };
   return (
     <div className="relative bg-secondary">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
@@ -140,7 +159,7 @@ function RencanaKarir() {
         </div>
         <Button
           className="flex gap-2 print:hidden w-auto mt-12"
-          onClick={() => window.print()}
+          onClick={cetakCarrer}
         >
           <Printer />
           Cetak Hasil

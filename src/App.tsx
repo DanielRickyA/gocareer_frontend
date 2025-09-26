@@ -15,6 +15,7 @@ import HasilTesMinat from "./page/uji_coba_minat/HasilTesMinat";
 import UjiCobaMinat from "./page/uji_coba_minat/UjiCobaMinat";
 import RefrensiKarir from "./page/RefrensiKarir";
 import RencanaKarir from "./page/RencanaKarir";
+import IntroRencanaKarir from "./page/IntroRencanaKarir";
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
               element={<SubJurusanList />}
             />
             <Route path="refrensi-karir" element={<RefrensiKarir />} />
-            <Route path="rencana-karir" element={<RencanaKarir />} />
+            <Route path="rencana-karir" element={<IntroRencanaKarir />} />
+            <Route path="rencana-karir/rencana" element={<RencanaKarir />} />
             <Route path="dukungan" element={<Dukungan />} />
             <Route path="sekolah" element={<Sekolah />} />
             <Route path="tentang-kami" element={<TentangKami />} />
