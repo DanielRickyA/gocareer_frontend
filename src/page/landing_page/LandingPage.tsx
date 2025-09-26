@@ -27,7 +27,7 @@ function LandingPage() {
                     className="bg-primary rounded-full lg:w-auto font-medium "
                     onClick={() => navigate("/asesmen-minat")}
                   >
-                    Asesmen Minat Sekarang
+                    Asesmen Minat
                   </Button>
                   <Button
                     className="bg-primary rounded-full lg:w-auto font-medium block"
@@ -39,13 +39,13 @@ function LandingPage() {
                     className="bg-primary rounded-full lg:w-auto font-medium block"
                     onClick={() => navigate("/refrensi-karir")}
                   >
-                    Refrensi Karir
+                    Referensi Karir
                   </Button>
                   <Button
                     className="bg-primary rounded-full lg:w-auto font-medium block"
                     onClick={() => navigate("/rencana-karir")}
                   >
-                    Rencana Karir harbatmu
+                    Rencana Karir Hebatmu
                   </Button>
                 </div>
               </div>
