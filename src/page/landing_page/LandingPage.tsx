@@ -1,14 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
-import FiturWebsite from "./FiturWebsite";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 function LandingPage() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="container mx-auto max-w-6xl px-4 md:px-8 py-4">
-        <Card className="bg-secondary p-0 px-6 md:px-10 z-10 shadow-none border-0">
-          <CardContent className="p-0">
+      <div className="relative mx-auto bg-secondary pt-16 min-h-[85dvh] h-full">
+        <Card className="p-0 px-6 md:px-10 mx-auto  bg-secondary z-10 shadow-none border-0 h-full">
+          <CardContent className="p-0 h-full">
             <div className="flex flex-col lg:flex-row items-end justify-between gap-10 h-full">
               <div className="text-black w-full lg:w-[75%] pt-8 pb-8 text-left md:text-center lg:text-left max-w-full md:max-w-2xl lg:max-w-full mx-auto ">
                 <h1 className="text-3xl md:text-4xl font-semibold ">
@@ -50,14 +49,14 @@ function LandingPage() {
                   </Button>
                 </div>
               </div>
-              <div className="min-h-full object-fill">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full sm:w-[75%]  lg:w-[50%]">
                 <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
-      <FiturWebsite />
+      {/* <FiturWebsite /> */}
     </>
   );
 }
