@@ -22,7 +22,7 @@ function LandingPage() {
                   yang sesuai, dan mendapat dukungan terbaik dari orang tua &
                   sekolah. Semua dalam satu platform.
                 </p>
-                <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 mt-4">
+                <div className="grid grid-cols-1 md:flex md:flex-wrap gap-2 mt-4">
                   <Button
                     className="bg-primary rounded-full lg:w-auto font-medium "
                     onClick={() => navigate("/asesmen-minat")}
@@ -49,7 +49,7 @@ function LandingPage() {
                   </Button>
                 </div>
               </div>
-              <div className="relative md:absolute bottom-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-[75%]  lg:w-[50%]">
+              <div className="w-full order-last md:order-none md:absolute md:bottom-0 md:left-1/2 md:-translate-x-1/2 md:w-[75%] lg:w-[50%]">
                 <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
