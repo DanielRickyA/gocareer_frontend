@@ -25,7 +25,7 @@ function RefrensiKarir() {
         dari orang tua dan guru, serta menemukan informasi tentang berbagai
         sekolah di Yogyakarta sesuai minat dan kebutuhanmu.
       </p>
-      <div className="flex flex-col md:flex-row justify-between items-center max-w-3xl w-full mx-auto mt-20 gap-12">
+      <div className="flex flex-col md:flex-row justify-between items-center max-w-5xl w-full mx-auto mt-20 gap-12">
         <Link to={"/dukungan"}>
           <Card className="p-10 animate-bounce-smooth cursor-pointer w-[300px] aspect-square bg-[#F9FAFC] shadow-none border border-gray-200">
             <CardContent className="flex flex-col justify-center items-center gap-4 h-full">
@@ -33,6 +33,18 @@ function RefrensiKarir() {
               <h1 className="text-3xl font-semibold">Dukungan</h1>
               <p className="text-description text-sm text-center">
                 Temukan peran orang tua dan guru dalam mendukung pilihan karirmu
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link to={"/jurusan"}>
+          <Card className="p-10 animate-bounce-smooth cursor-pointer w-[300px] aspect-square bg-[#F9FAFC] shadow-none border border-gray-200">
+            <CardContent className="flex flex-col justify-center items-center gap-4 h-full">
+              <img src="/icon3.png" alt="logo" className="w-20" />
+              <h1 className="text-3xl font-semibold">Jurusan</h1>
+              <p className="text-description text-sm text-center">
+                Lihat Daftar Jurusan atau Matakuliah untuk menentukan arah pendidikanmu
               </p>
             </CardContent>
           </Card>
