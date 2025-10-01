@@ -19,11 +19,14 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import noData from "../assets/Emptybox.json";
 import { Card, CardContent } from "@/components/ui/card";
+import { CircleArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 function Sekolah() {
   const [tab, setTab] = useState<string>("sma");
   const [kabupaten, setKabupaten] = useState<string>("0");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["sekolah", kabupaten],
@@ -67,7 +70,14 @@ function Sekolah() {
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
-        <div className="flex gap-6 items-center justify-start">
+        <div
+          className="flex justif-start items-center gap-2 cursor-pointer print:hidden"
+          onClick={() => navigate("/refrensi-karir")}
+        >
+          <CircleArrowLeft size={16} />
+          <p>Kembali</p>
+        </div>
+        <div className="flex gap-6 items-center justify-start mt-4">
           <img src="/icon5.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">Sekolah</h1>
         </div>

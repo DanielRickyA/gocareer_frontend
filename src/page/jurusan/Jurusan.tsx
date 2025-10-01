@@ -1,11 +1,21 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import { CircleArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Jurusan() {
+  const navigate = useNavigate();
+
   return (
     <div className="">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[85dvh]">
-        <div className="flex gap-6 items-center justify-start">
+        <div
+          className="flex justif-start items-center gap-2 cursor-pointer print:hidden"
+          onClick={() => navigate("/refrensi-karir")}
+        >
+          <CircleArrowLeft size={16} />
+          <p>Kembali</p>
+        </div>
+        <div className="flex gap-6 items-center justify-start mt-4">
           <img src="/icon3.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">Jurusan</h1>
         </div>

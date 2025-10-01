@@ -1,4 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { CircleArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const minatBakatList = [
   {
@@ -68,10 +70,18 @@ const minatBakatList = [
   },
 ];
 function MinatBakat() {
+  const navigate = useNavigate();
   return (
     <div className="relative">
       <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12">
-        <div className="flex gap-6 items-center justify-start">
+        <div
+          className="flex justif-start items-center gap-2 cursor-pointer"
+          onClick={() => navigate("/beranda")}
+        >
+          <CircleArrowLeft size={16} />
+          <p>Kembali</p>
+        </div>
+        <div className="flex gap-6 items-center justify-start mt-4">
           <img src="/icon2.png" alt="" />
           <h1 className="text-4xl md:text-5xl text-left font-bold">
             Minat Bakat

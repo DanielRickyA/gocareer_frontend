@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
+import { CircleArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function IntroRencanaKarir() {
   const navigate = useNavigate();
   return (
     <div className="relative bg-secondary">
-      <div className="container mx-auto max-w-6xl px-4 md:px-8 min-h-[85dvh] items-center flex flex-col justify-center z-10 relative">
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 pt-12">
+        <div
+          className="flex justif-start items-center gap-2 cursor-pointer"
+          onClick={() => navigate("/beranda")}
+        >
+          <CircleArrowLeft size={16} />
+          <p>Kembali</p>
+        </div>
+      </div>
+      <div className="container mx-auto max-w-6xl px-4 md:px-8 min-h-[78dvh] items-center flex flex-col justify-center z-10 relative">
         <div className="flex gap-6 items-center justify-center ">
           <img src="/success.png" alt="" className="w-32 h-32" />
           <h1 className="text-3xl md:text-7xl text-left font-bold">
