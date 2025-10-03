@@ -57,9 +57,18 @@ function TesMinat() {
         return toast.error("Kelas tidak boleh kosong");
       }
       if (!umur) {
-        return toast.error("Umur tidak boleh kosong");
+        return toast.error("Usia tidak boleh kosong");
       }
 
+      const data = {
+        name,
+        alamat,
+        namaSekolah,
+        kelas,
+        umur,
+      };
+
+      localStorage.setItem("formData", JSON.stringify(data));
       setPart(2);
       console.log("masuk Part 1");
     } else {
@@ -168,7 +177,6 @@ function TesMinat() {
       }
 
       toast.success("Data Berhasil disubmit");
-      localStorage.setItem("name", name);
       localStorage.setItem("testResults", JSON.stringify(normalizedScores));
 
       navigate("/asesmen-minat/hasil");
@@ -203,8 +211,8 @@ function TesMinat() {
         </p>
         {part == 1 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-8 print:ms-10">
-              <div className="mt-8 grid w-full items-center gap-3" id="nama">
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-8 print:ms-10">
+              <div className="grid w-full items-center gap-3" id="nama">
                 <Label htmlFor="nama">Nama Peserta</Label>
                 <Input
                   type="text"
@@ -215,7 +223,7 @@ function TesMinat() {
                 />
               </div>
               <div
-                className="mt-8 grid w-full items-center gap-3 print:hidden"
+                className="grid w-full items-center gap-3 print:hidden"
                 id="alamat"
               >
                 <Label htmlFor="alamat">Alamat</Label>
@@ -229,9 +237,9 @@ function TesMinat() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 mt-2 gap-8 print:ms-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-8 print:ms-10">
               <div
-                className="mt-8 grid w-full items-center gap-3 print:hidden"
+                className="grid w-full items-center gap-3 print:hidden"
                 id="namaSekolah"
               >
                 <Label htmlFor="namaSekolah">Nama Sekolah</Label>
@@ -245,7 +253,7 @@ function TesMinat() {
                 />
               </div>
               <div
-                className="mt-8 grid w-full items-center gap-3 print:hidden"
+                className="grid w-full items-center gap-3 print:hidden"
                 id="kelas"
               >
                 <Label htmlFor="kelas">Kelas</Label>
@@ -258,15 +266,17 @@ function TesMinat() {
                   onChange={(e) => setKelas(e.target.value)}
                 />
               </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-8 print:ms-10 mt-8">
               <div
-                className="mt-8 grid w-full items-center gap-3 print:hidden"
+                className="grid w-full items-center gap-3 print:hidden"
                 id="umur"
               >
-                <Label htmlFor="umur">Umur</Label>
+                <Label htmlFor="umur">Usia</Label>
                 <Input
                   type="number"
                   id="umur"
-                  placeholder="Masukan Umur Anda"
+                  placeholder="Masukan Usia Anda"
                   value={umur}
                   className="bg-white"
                   onChange={(e) => setUmur(e.target.value)}

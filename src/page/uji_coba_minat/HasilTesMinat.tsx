@@ -28,6 +28,15 @@ interface ChartData {
   point: number;
 }
 
+interface FormData {
+  name: string;
+  alamat: string;
+  namaSekolah: string;
+  kelas: string;
+  umur: string;
+  sekolah: string;
+}
+
 function HasilTesMinat() {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState<ChartData[]>([]);
@@ -36,11 +45,18 @@ function HasilTesMinat() {
   const [dataKarirNegara, setDataKarirNegara] = useState<string[]>([]);
   const [dataKarirSwasta, setDataKarirSwasta] = useState<string[]>([]);
   const [dataKarirLain, setDataKarirLain] = useState<string[]>([]);
-  const [name, setName] = useState<string>("");
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    alamat: "",
+    namaSekolah: "",
+    kelas: "",
+    umur: "",
+    sekolah: "",
+  });
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const localName = localStorage.getItem("name");
+    const localData = localStorage.getItem("formData");
     const localCharData = localStorage.getItem("testResults");
 
     if (localCharData) {
@@ -77,7 +93,7 @@ function HasilTesMinat() {
       setChartData([]);
     }
 
-    setName(localName ?? "");
+    setFormData(JSON.parse(localData ?? ""));
   }, [navigate]);
 
   const date = new Date().toISOString();
@@ -116,32 +132,42 @@ function HasilTesMinat() {
             <div className="flex justify-between items-center relative z-50">
               <p className="text-xl mt-4 print:mt-0">
                 Hasil Asesmen Minat untuk Peserta{" "}
-                <span className="font-semibold text-primary">{name}</span>.
+                <span className="font-semibold text-primary">
+                  {formData.name} ({formData.umur}) .
+                </span>
               </p>
               <p>{formatDate(date)}</p>
             </div>
-            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
+            <div>
+              <p>
+                Alamat {formData.name}: {formData.alamat}
+              </p>
+              <p>
+                {formData.namaSekolah}, Kelas {formData.kelas}{" "}
+              </p>
+            </div>
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 print:mt-2 relative">
               <CardContent>
-                <p className="text-xl font-semibold ">
+                <p className="text-xl font-semibold print:text-lg">
                   Minat bakat yang paling sesuai untuk kamu:
                 </p>
-                <p className="text-4xl font-semibold mt-4 text-primary">
+                <p className="text-4xl font-semibold mt-4 text-primary print:text-2xl">
                   {topCategories
                     .map((item) => getInterestDescription(item))
                     .join(", ")}
                 </p>
               </CardContent>
             </Card>
-            <p className="text-xl mt-6 font-semibold">
+            <p className="text-xl print:text-base mt-6 print:mt-2 font-semibold">
               Deskripsi Hasil Asesmen Minat
             </p>
-            <p className="mt-2">
+            <p className="mt-2 print:mt-0 print:text-sm">
               Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
               {topCategories
                 .map((item) => getInterestDescription2(item))
                 .join(", ")}
             </p>
-            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 print:mt-2 relative">
               <CardContent>
                 <p>
                   <span className="font-semibold text-green-800">

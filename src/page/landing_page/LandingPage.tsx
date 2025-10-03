@@ -9,7 +9,7 @@ function LandingPage() {
         <Card className="p-0 px-6 md:px-10 mx-auto bg-secondary z-10 shadow-none border-0 h-full">
           <CardContent className="p-0 h-full">
             <div className="flex flex-col items-center justify-between gap-10 h-full">
-              <div className="text-black w-full pt-8 pb-8 text-left md:text-center lg:text-left max-w-full md:max-w-2xl lg:max-w-7xl mx-auto ">
+              <div className="text-black w-full pt-8 pb-8 text-left md:text-center lg:text-left max-w-full md:max-w-2xl lg:max-w-6xl px-8 mx-auto ">
                 <h1 className="text-3xl md:text-4xl font-semibold ">
                   Temukan{" "}
                   <span className="text-primary">
@@ -50,7 +50,7 @@ function LandingPage() {
                 </div>
               </div>
               <div className="w-full order-last lg:w-[65%]">
-                <img src="/Foto3.png" alt="photo1" className="h-full w-full" />
+                <img src="/Foto4.png" alt="photo1" className="h-full w-full" />
               </div>
             </div>
           </CardContent>
