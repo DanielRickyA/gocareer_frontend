@@ -517,11 +517,11 @@ type Rekomendasi = {
 const interestMap: Record<string, Rekomendasi> = {
   AGM: {
     SMA: ["IPS"],
-    SMK: ["Keagamaan", "Perbankan Syariah", "Teknik Komputer dan Jaringan"],
+    SMK: ["Keagamaan", "Perbankan Syariah"],
   },
   MTK: {
     SMA: ["IPA"],
-    SMK: ["Rekayasa Perangkat Lunak", "SMK Teknik Komputer dan Jaringan"],
+    SMK: [],
   },
   IPA: {
     SMA: ["IPA"],
