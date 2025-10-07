@@ -151,7 +151,7 @@ function HasilTesMinat() {
         <div className="LPP ">
           <div className="print:m-5">
             <div className="flex justify-between items-center relative z-50">
-              <p className="text-xl mt-4 print:mt-0">
+              <p className="text-xl mt-4">
                 Hasil Asesmen Minat untuk Peserta{" "}
                 <span className="font-semibold text-primary">
                   {formData.name} ({formData.umur}) .
@@ -167,12 +167,12 @@ function HasilTesMinat() {
                 {formData.namaSekolah}, Kelas {formData.kelas}{" "}
               </p>
             </div>
-            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 print:mt-2 relative">
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
               <CardContent>
-                <p className="text-xl font-semibold print:text-lg">
+                <p className="text-xl font-semibold">
                   Minat bakat yang paling sesuai untuk kamu:
                 </p>
-                <p className="text-4xl font-semibold mt-4 text-primary print:text-2xl">
+                <p className="text-4xl font-semibold mt-4 text-primary print:text-3xl">
                   {topCategories
                     .map((item) => getInterestDescription(item))
                     .join(", ")}
@@ -180,7 +180,7 @@ function HasilTesMinat() {
               </CardContent>
             </Card>
 
-            <div className="print:hidden">
+            <div className="">
               <p className="text-xl mt-6 font-semibold">Pilihan Sekolah</p>
               <p className="mt-2">
                 Peserta didik dapat direkomendasikan memilih sekolah:
@@ -203,19 +203,19 @@ function HasilTesMinat() {
                     <li>Tidak ada rekomendasi sekolah.</li>
                   )}
               </ol>
-              <hr className="my-6 border-t border-gray-300" />
+              <hr className="my-6 border-t border-gray-300 print:hidden" />
             </div>
 
-            <p className="text-xl print:text-base mt-6 print:mt-2 font-semibold">
+            <p className="text-xl  mt-6 font-semibold">
               Deskripsi Hasil Asesmen Minat
             </p>
-            <p className="mt-2 print:mt-0 print:text-sm">
+            <p className="mt-2 text-xl">
               Kecenderungan pilihan peserta didik menyukai kegiatan bidang{" "}
               {topCategories
                 .map((item) => getInterestDescription2(item))
                 .join(", ")}
             </p>
-            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 print:mt-2 relative">
+            <Card className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 mt-4 relative">
               <CardContent>
                 <p>
                   <span className="font-semibold text-green-800">
