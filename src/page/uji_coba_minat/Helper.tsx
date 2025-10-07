@@ -508,3 +508,89 @@ export const getKarirLain = (code: string): string[] => {
 
   return interestMap[code] || ["Unknown Code"];
 };
+
+type Rekomendasi = {
+  SMA: string[];
+  SMK: string[];
+};
+
+const interestMap: Record<string, Rekomendasi> = {
+  AGM: {
+    SMA: ["IPS"],
+    SMK: ["Keagamaan", "Perbankan Syariah", "Teknik Komputer dan Jaringan"],
+  },
+  MTK: {
+    SMA: ["IPA"],
+    SMK: ["Rekayasa Perangkat Lunak", "SMK Teknik Komputer dan Jaringan"],
+  },
+  IPA: {
+    SMA: ["IPA"],
+    SMK: ["Teknik Kimia", "Teknik Elektronika Industri", "Teknik Mekatronika"],
+  },
+  IPS: {
+    SMA: ["IPS"],
+    SMK: [
+      "Akuntansi dan Keuangan Lembaga",
+      "Administrasi Perkantoran",
+      "Pemasaran",
+    ],
+  },
+  BDB: {
+    SMA: ["Bahasa"],
+    SMK: ["Bahasa Inggris", "Bahasa Indonesia", "Bahasa Jawa"],
+  },
+  TDR: {
+    SMA: ["IPA"],
+    SMK: ["Teknik Otomotif", "Teknik Mesin", "Teknik Kendaraan Ringan"],
+  },
+  TIK: {
+    SMA: ["IPA"],
+    SMK: ["Rekayasa Perangkat Lunak", "Teknik Komputer dan Jaringan"],
+  },
+  KES: {
+    SMA: ["IPA"],
+    SMK: ["Kesehatan", "Kesehatan Masyarakat", "Kesehatan Lingkungan"],
+  },
+  AGR: {
+    SMA: ["IPA"],
+    SMK: ["Teknik Pertanian", "Teknik Peternakan", "Teknik Perkebunan"],
+  },
+  PDK: {
+    SMA: ["IPA"],
+    SMK: [
+      "Teknik Perikanan",
+      "Teknik Kelautan",
+      "Teknik Pengolahan Hasil Perikanan",
+    ],
+  },
+  BDM: {
+    SMA: ["IPS"],
+    SMK: [
+      "Akuntansi dan Keuangan Lembaga",
+      "Administrasi Perkantoran",
+      "Pemasaran",
+    ],
+  },
+  PRW: {
+    SMA: ["IPS"],
+    SMK: ["Perhotelan", "Pariwisata", "Kuliner"],
+  },
+  SDK: {
+    SMA: ["IPS"],
+    SMK: ["Seni Rupa", "Seni Musik", "Seni Tari"],
+  },
+  KOR: {
+    SMA: ["IPS"],
+    SMK: ["Olahraga", "Kesehatan dan Kebugaran", "Rekreasi"],
+  },
+};
+
+export const getRekomendasiSekolah = (
+  code: string
+): Rekomendasi | { error: string } => {
+  if (interestMap[code]) {
+    return interestMap[code];
+  } else {
+    return { error: "Unknown Code" };
+  }
+};

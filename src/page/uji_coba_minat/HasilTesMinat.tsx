@@ -20,6 +20,7 @@ import {
   getKarirLain,
   getKarirNegara,
   getKarirSwasta,
+  getRekomendasiSekolah,
 } from "./Helper";
 import { Button } from "@/components/ui/button";
 
@@ -37,6 +38,11 @@ interface FormData {
   sekolah: string;
 }
 
+type Rekomendasi = {
+  SMA: string[];
+  SMK: string[];
+};
+
 function HasilTesMinat() {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState<ChartData[]>([]);
@@ -45,6 +51,10 @@ function HasilTesMinat() {
   const [dataKarirNegara, setDataKarirNegara] = useState<string[]>([]);
   const [dataKarirSwasta, setDataKarirSwasta] = useState<string[]>([]);
   const [dataKarirLain, setDataKarirLain] = useState<string[]>([]);
+  const [dataRekSekolah, setDataRekSekolah] = useState<Rekomendasi>({
+    SMA: [],
+    SMK: [],
+  });
   const [formData, setFormData] = useState<FormData>({
     name: "",
     alamat: "",
@@ -88,6 +98,17 @@ function HasilTesMinat() {
       setDataKarirNegara(topCategories.flatMap((item) => getKarirNegara(item)));
       setDataKarirSwasta(topCategories.flatMap((item) => getKarirSwasta(item)));
       setDataKarirLain(topCategories.flatMap((item) => getKarirLain(item)));
+      const hasilRekomendasi = topCategories
+        .map((item) => getRekomendasiSekolah(item))
+        .filter((rek): rek is Rekomendasi => !("error" in rek)); // hilangkan yang error
+
+      const gabunganSMA = hasilRekomendasi.flatMap((rek) => rek.SMA);
+      const gabunganSMK = hasilRekomendasi.flatMap((rek) => rek.SMK);
+
+      setDataRekSekolah({
+        SMA: gabunganSMA,
+        SMK: gabunganSMK,
+      });
       setChartData(top6Data);
     } else {
       setChartData([]);
@@ -158,6 +179,33 @@ function HasilTesMinat() {
                 </p>
               </CardContent>
             </Card>
+
+            <div className="print:hidden">
+              <p className="text-xl mt-6 font-semibold">Pilihan Sekolah</p>
+              <p className="mt-2">
+                Peserta didik dapat direkomendasikan memilih sekolah:
+              </p>
+              <ol className="list-decimal pl-4 space-y-2 mt-2">
+                {dataRekSekolah.SMA.length > 0 && (
+                  <li>
+                    Sekolah Menengah Atas (SMA):{" "}
+                    {dataRekSekolah.SMA.join(", ") || "Tidak ada"}
+                  </li>
+                )}
+                {dataRekSekolah.SMK.length > 0 && (
+                  <li>
+                    Sekolah Menengah Kejuruan (SMK):{" "}
+                    {dataRekSekolah.SMK.join(", ") || "Tidak ada"}
+                  </li>
+                )}
+                {dataRekSekolah.SMA.length === 0 &&
+                  dataRekSekolah.SMK.length === 0 && (
+                    <li>Tidak ada rekomendasi sekolah.</li>
+                  )}
+              </ol>
+              <hr className="my-6 border-t border-gray-300" />
+            </div>
+
             <p className="text-xl print:text-base mt-6 print:mt-2 font-semibold">
               Deskripsi Hasil Asesmen Minat
             </p>
