@@ -5,6 +5,7 @@ import { useState, useMemo } from "react"; // Tambahkan useMemo
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { dataTemp } from "./DataTemp";
+import { Progress } from "@/components/ui/progress";
 // import { getInterestDescription } from "./Helper";
 
 function TesMinat() {
@@ -285,93 +286,107 @@ function TesMinat() {
             </div>
           </>
         ) : (
-          <div className="mt-8" id="Soal">
-            {currentQuestions.map((item) => {
-              const globalIndex = item.globalIndex;
-              return (
-                <div key={globalIndex}>
-                  <div className="mb-8" id={item.soal}>
-                    <p className="text-lg font-semibold">{item.soal}</p>
-                    <div className="flex items-center justify-start gap-8 mt-8">
-                      <div className="flex flex-col items-center">
-                        <div className="flex space-x-4 items-center">
-                          {/* Label kiri (desktop) */}
-                          <span className="hidden md:block text-sm lg:text-base">
-                            Tidak Setuju
-                          </span>
-                          <div className="w-full">
-                            {/* Label bawah khusus untuk mobile */}
-                            <div className="flex justify-between w-full mb-2 md:hidden px-1 ">
-                              <span className="text-xs">Tidak Setuju</span>
-                              <span className="text-xs">Setuju</span>
-                            </div>
-                            {/* Bulatan */}
-                            <div className="flex space-x-2 md:space-x-4 items-end justify-center">
-                              {[1, 2, 3, 4, 5, 6, 7].map((num) => {
-                                const sizes = [
-                                  "w-6 h-6",
-                                  "w-7 h-7",
-                                  "w-8 h-8",
-                                  "w-9 h-9",
-                                  "w-10 h-10",
-                                  "w-11 h-11",
-                                  "w-12 h-12",
-                                ];
-                                const sizeClass = sizes[num - 1];
-                                let borderColor = "border-gray-400";
-                                let checkedColor =
-                                  "peer-checked:bg-gray-400 peer-checked:border-gray-400";
+          <>
+            <div className="mt-8 w-full" id="Soal">
+              <div className="flex justify-center items-center gap-2">
+                <Progress
+                  value={((page + 1) / totalPages) * 100}
+                  className="flex-1"
+                />
+                <p className="block">
+                  {page + 1} / {totalPages}
+                </p>
+              </div>
+            </div>
+            <div className="mt-8">
+              {currentQuestions.map((item) => {
+                console.log(item);
+                const globalIndex = item.globalIndex;
+                return (
+                  <div key={globalIndex}>
+                    <div className="mb-8" id={item.soal}>
+                      <p className="text-lg font-semibold">{item.soal}</p>
+                      <div className="flex items-center justify-start gap-8 mt-8">
+                        <div className="flex flex-col items-center">
+                          <div className="flex space-x-4 items-center">
+                            {/* Label kiri (desktop) */}
+                            <span className="hidden md:block text-sm lg:text-base">
+                              Tidak Setuju
+                            </span>
+                            <div className="w-full">
+                              {/* Label bawah khusus untuk mobile */}
+                              <div className="flex justify-between w-full mb-2 md:hidden px-1 ">
+                                <span className="text-xs">Tidak Setuju</span>
+                                <span className="text-xs">Setuju</span>
+                              </div>
+                              {/* Bulatan */}
+                              <div className="flex space-x-2 md:space-x-4 items-end justify-center">
+                                {[1, 2, 3, 4, 5, 6, 7].map((num) => {
+                                  const sizes = [
+                                    "w-6 h-6",
+                                    "w-7 h-7",
+                                    "w-8 h-8",
+                                    "w-9 h-9",
+                                    "w-10 h-10",
+                                    "w-11 h-11",
+                                    "w-12 h-12",
+                                  ];
+                                  const sizeClass = sizes[num - 1];
+                                  let borderColor = "border-gray-400";
+                                  let checkedColor =
+                                    "peer-checked:bg-gray-400 peer-checked:border-gray-400";
 
-                                if (num < 4) {
-                                  borderColor = "border-[#FFC444]";
-                                  checkedColor =
-                                    "peer-checked:bg-[#FFC444] peer-checked:border-[#FFC444]";
-                                } else if (num > 4) {
-                                  borderColor = "border-[#4298B4]";
-                                  checkedColor =
-                                    "peer-checked:bg-[#4298B4] peer-checked:border-[#4298B4]";
-                                }
+                                  if (num < 4) {
+                                    borderColor = "border-[#FFC444]";
+                                    checkedColor =
+                                      "peer-checked:bg-[#FFC444] peer-checked:border-[#FFC444]";
+                                  } else if (num > 4) {
+                                    borderColor = "border-[#4298B4]";
+                                    checkedColor =
+                                      "peer-checked:bg-[#4298B4] peer-checked:border-[#4298B4]";
+                                  }
 
-                                return (
-                                  <Label
-                                    key={num}
-                                    className="flex flex-col items-center cursor-pointer"
-                                  >
-                                    <Input
-                                      type="radio"
-                                      name={`soal-${globalIndex}`}
-                                      value={num}
-                                      checked={answers[globalIndex] === num}
-                                      onChange={() =>
-                                        handleAnswer(globalIndex, num)
-                                      }
-                                      className="hidden peer"
-                                    />
-                                    <div
-                                      className={`rounded-full border-2 ${sizeClass} ${borderColor} ${checkedColor} transition`}
-                                    />
-                                    <span className="mt-1 text-xs font-semibold">
-                                      {num}
-                                    </span>
-                                  </Label>
-                                );
-                              })}
+                                  return (
+                                    <Label
+                                      key={num}
+                                      className="flex flex-col items-center cursor-pointer"
+                                    >
+                                      <Input
+                                        type="radio"
+                                        name={`soal-${globalIndex}`}
+                                        value={num}
+                                        checked={answers[globalIndex] === num}
+                                        onChange={() =>
+                                          handleAnswer(globalIndex, num)
+                                        }
+                                        className="hidden peer"
+                                      />
+                                      <div
+                                        className={`rounded-full border-2 ${sizeClass} ${borderColor} ${checkedColor} transition`}
+                                      />
+                                      <span className="mt-1 text-xs font-semibold">
+                                        {num}
+                                      </span>
+                                    </Label>
+                                  );
+                                })}
+                              </div>
                             </div>
+
+                            {/* Label kanan (desktop) */}
+                            <span className="hidden md:block text-sm lg:text-base">
+                              Setuju
+                            </span>
                           </div>
-
-                          {/* Label kanan (desktop) */}
-                          <span className="hidden md:block text-sm lg:text-base">
-                            Setuju
-                          </span>
                         </div>
                       </div>
                     </div>
+                    <Separator className="my-8" />
                   </div>
-                  <Separator className="my-8" />
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </>
         )}
 
         <div className="mt-8" id="Soal">
