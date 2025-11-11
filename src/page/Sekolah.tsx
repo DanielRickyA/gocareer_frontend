@@ -1,6 +1,5 @@
-import { getSekolah, type SekolahResponseModel } from "@/api/apiSekolah";
+import { mockSchoolData } from "@/mock/useGetSekolah";
 import CardSekolah from "@/components/CardSekolah";
-import SkeletonSekolah from "@/components/SkeletonSekolah";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,15 +11,15 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useIsMobile from "@/hooks/useIsMobile";
-import { useQuery } from "@tanstack/react-query";
 import Lottie from "lottie-react";
 // import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
-import { toast } from "sonner";
 import noData from "../assets/Emptybox.json";
 import { Card, CardContent } from "@/components/ui/card";
 import { CircleArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import type { KabupatenData } from "@/mock/useGetSekolah";
+
 function Sekolah() {
   const [tab, setTab] = useState<string>("sma");
   const [kabupaten, setKabupaten] = useState<string>("0");
@@ -28,20 +27,33 @@ function Sekolah() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["sekolah", kabupaten],
-    queryFn: () => getSekolah(Number(kabupaten)),
-    retry: false,
-  });
-
+  // Filter and search data using a single useMemo
   const filteredData = useMemo(() => {
-    if (!data?.data) return [];
+    let result = [...mockSchoolData.data];
 
-    const lowerSearch = searchTerm.toLowerCase();
+    // Filter by kabupaten if not "0" (all)
+    if (kabupaten !== "0") {
+      const kabupatenIndex = parseInt(kabupaten) - 1;
+      const kabupatenNames = [
+        "Kabupaten Bantul",
+        "Kabupaten Gunungkidul",
+        "Kabupaten Kulon Progo",
+        "Kabupaten Sleman",
+        "Kota Yogyakarta",
+      ];
 
-    return (
-      data.data
-        .map((item: SekolahResponseModel) => {
+      if (kabupatenIndex >= 0 && kabupatenIndex < kabupatenNames.length) {
+        result = result.filter(
+          (item) => item.kabupaten === kabupatenNames[kabupatenIndex]
+        );
+      }
+    }
+
+    // Filter by search term
+    if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase();
+      result = result
+        .map((item) => {
           const filteredSMA = item.sma.filter((sma) =>
             sma.nama.toLowerCase().includes(lowerSearch)
           );
@@ -55,17 +67,14 @@ function Sekolah() {
             smk: filteredSMK,
           };
         })
-        // Hapus kabupaten yang hasilnya kosong semua
-        .filter((item) => item.sma.length > 0 || item.smk.length > 0)
-    );
-  }, [data, searchTerm]);
+        .filter((item) => item.sma.length > 0 || item.smk.length > 0);
+    }
 
-  if (isError) {
-    const message =
-      error instanceof Error ? error.message : "Terjadi kesalahan";
-    toast.error(message);
-    return null;
-  }
+    return result;
+  }, [kabupaten, searchTerm]);
+
+  // Since we're using mock data, we don't need loading state
+  // const isLoading = false;
 
   return (
     <div className="relative">
@@ -144,30 +153,26 @@ function Sekolah() {
               </TabsList>
             </Tabs>
             <div>
-              {isLoading ? (
-                <SkeletonSekolah />
-              ) : (
-                <>
-                  <h1 className="text-2xl font-semibold mt-4">
-                    {tab == "sma" ? "SMA" : "SMK"}
-                  </h1>
-                  {filteredData.length == 0 ? (
-                    <div className="flex flex-col justify-center items-center w-full h-full mt-6">
-                      <Lottie
-                        animationData={noData}
-                        className="mx-auto w-[40%]"
-                      />
-                      <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+              <>
+                <h1 className="text-2xl font-semibold mt-4">
+                  {tab == "sma" ? "SMA" : "SMK"}
+                </h1>
+                {filteredData.length == 0 ? (
+                  <div className="flex flex-col justify-center items-center w-full h-full mt-6">
+                    <Lottie
+                      animationData={noData}
+                      className="mx-auto w-[40%]"
+                    />
+                    <p className="text-xl font-semibold  mt-4">Data Kosong</p>
+                  </div>
+                ) : (
+                  filteredData?.map((item: KabupatenData, index) => (
+                    <div className="mt-2" key={index}>
+                      <CardSekolah item={item} sekolah={tab} />
                     </div>
-                  ) : (
-                    filteredData?.map((item: SekolahResponseModel, index) => (
-                      <div className="mt-2" key={index}>
-                        <CardSekolah item={item} sekolah={tab} />
-                      </div>
-                    ))
-                  )}
-                </>
-              )}
+                  ))
+                )}
+              </>
             </div>
           </>
         ) : (
@@ -178,83 +183,76 @@ function Sekolah() {
                 <h1 className="text-2xl font-semibold">SMK</h1>
               </>
             </div>
-            {isLoading ? (
-              <SkeletonSekolah />
-            ) : (
-              <div className="mt-2">
-                {filteredData.length === 0 ? (
-                  <div className="flex flex-col justify-center items-center w-full h-full mt-6">
-                    <Lottie
-                      animationData={noData}
-                      className="mx-auto w-[40%]"
-                    />
-                    <p className="text-xl font-semibold mt-4">Data Kosong</p>
-                  </div>
-                ) : (
-                  filteredData.map((item: SekolahResponseModel, index) => {
-                    const smaList = item.sma || [];
-                    const smkList = item.smk || [];
+            <div className="mt-2">
+              {filteredData.length === 0 ? (
+                <div className="flex flex-col justify-center items-center w-full h-full mt-6">
+                  <Lottie animationData={noData} className="mx-auto w-[40%]" />
+                  <p className="text-xl font-semibold mt-4">Data Kosong</p>
+                </div>
+              ) : (
+                filteredData.map((item: KabupatenData, index) => {
+                  const smaList = item.sma || [];
+                  const smkList = item.smk || [];
 
-                    return (
-                      <div
-                        key={index}
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
-                      >
-                        {/* Kolom SMA */}
-                        <div>
-                          <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                            <p className="font-semibold">{item.kabupaten}</p>
-                          </div>
-                          <div className="mt-2">
-                            {smaList.length === 0 ? (
-                              <p className="text-gray-400 italic">
-                                Tidak ada data
-                              </p>
-                            ) : (
-                              smaList.map((sma) => (
-                                <Card
-                                  className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
-                                  key={sma.id}
-                                >
-                                  <CardContent className="flex flex-col h-full">
-                                    <p className="my-2">{sma.nama}</p>
-                                  </CardContent>
-                                </Card>
-                              ))
-                            )}
-                          </div>
+                  return (
+                    <div
+                      key={index}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
+                    >
+                      {/* Kolom SMA */}
+                      <div>
+                        <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                          <p className="font-semibold">{item.kabupaten}</p>
                         </div>
-
-                        {/* Kolom SMK */}
-                        <div>
-                          <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
-                            <p className="font-semibold">{item.kabupaten}</p>
-                          </div>
-                          <div className="mt-2">
-                            {smkList.length === 0 ? (
-                              <p className="text-gray-400 italic">
-                                Tidak ada data
-                              </p>
-                            ) : (
-                              smkList.map((smk) => (
-                                <Card
-                                  className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
-                                  key={smk.id}
-                                >
-                                  <CardContent className="flex flex-col h-full">
-                                    <p className="my-2">{smk.nama}</p>
-                                  </CardContent>
-                                </Card>
-                              ))
-                            )}
-                          </div>
+                        <div className="mt-2">
+                          {smaList.length === 0 ? (
+                            <p className="text-gray-400 italic">
+                              Tidak ada data
+                            </p>
+                          ) : (
+                            smaList.map((sma) => (
+                              <Card
+                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                                key={sma.id}
+                              >
+                                <CardContent className="flex flex-col h-full">
+                                  <p className="my-2">{sma.nama}</p>
+                                </CardContent>
+                              </Card>
+                            ))
+                          )}
                         </div>
                       </div>
-                    );
-                  })
-                )}
-              </div>
-            )}
+
+                      {/* Kolom SMK */}
+                      <div>
+                        <div className="bg-secondary p-2 border-[0.2px] border-[#f1f2f5]">
+                          <p className="font-semibold">{item.kabupaten}</p>
+                        </div>
+                        <div className="mt-2">
+                          {smkList.length === 0 ? (
+                            <p className="text-gray-400 italic">
+                              Tidak ada data
+                            </p>
+                          ) : (
+                            smkList.map((smk) => (
+                              <Card
+                                className="bg-[#F9FAFC] flex flex-col h-full shadow-none border-[0.3px] w-full z-20 py-2 my-2"
+                                key={smk.id}
+                              >
+                                <CardContent className="flex flex-col h-full">
+                                  <p className="my-2">{smk.nama}</p>
+                                </CardContent>
+                              </Card>
+                            ))
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </>
         )}
       </div>

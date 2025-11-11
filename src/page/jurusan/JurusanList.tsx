@@ -1,42 +1,41 @@
-import { getJurusan, type JurusanResponseModel } from "@/api/apiJurusan";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CircleArrowLeft } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
 import { useMemo, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Lottie from "lottie-react";
 import noData from "../../assets/Emptybox.json";
 import { slugify } from "@/lib/utils";
+import { mockJurusan } from "@/mock/useGetJurusan";
+
+// Define the type for jurusan data
+type Jurusan = {
+  id: number;
+  jenjang: string;
+  nama: string;
+};
 
 function JurusanList() {
   const { sekolah } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  // Query ke API
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["jurusan"],
-    queryFn: getJurusan,
-    retry: false,
-  });
+  // Using mock data instead of React Query
+  const { data, isLoading } = {
+    data: { data: mockJurusan },
+    isLoading: false,
+  };
 
   const filteredJurusan = useMemo(() => {
     if (!data?.data) return [];
     return data.data.filter(
-      (j: JurusanResponseModel) =>
-        j.tipe_sekolah === sekolah &&
+      (j: Jurusan) =>
+        j.jenjang === sekolah &&
         j.nama.toLowerCase().includes(search.toLowerCase())
     );
   }, [data?.data, sekolah, search]);
-
-  if (isError) {
-    const err = error as { message: string };
-    return toast.error(err.message);
-  }
 
   return (
     <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[84.1dvh]">
@@ -91,8 +90,8 @@ function JurusanList() {
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-6">
             {filteredJurusan
-              ?.filter((j) => j.tipe_sekolah == sekolah)
-              .map((jurusan: JurusanResponseModel) => (
+              ?.filter((j: Jurusan) => j.jenjang == sekolah)
+              .map((jurusan: Jurusan) => (
                 <Link
                   to={`/jurusan/${sekolah}/${slugify(jurusan.nama)}-${
                     jurusan.id

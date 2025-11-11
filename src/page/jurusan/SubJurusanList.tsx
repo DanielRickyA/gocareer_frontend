@@ -1,15 +1,22 @@
-import { getItemJurusan, type SubJurusanResponseModel } from "@/api/apiJurusan";
 import LazyYoutube from "@/components/LazyYoutube";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuery } from "@tanstack/react-query";
 import Lottie from "lottie-react";
 import { CircleArrowLeft } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
 import noData from "../../assets/Emptybox.json";
 import { formatTitle } from "@/lib/utils";
+import { mockVideoItems } from "@/mock/useGetJurusan";
+
+// Define the type for video item data
+type VideoItem = {
+  id: number;
+  id_jurusan: number;
+  nama: string;
+  youtube: string;
+};
+
 function SubJurusanList() {
   const { sekolah, jurusan } = useParams();
   const navigate = useNavigate();
@@ -24,24 +31,19 @@ function SubJurusanList() {
 
   const parsedJurusan = jurusan ? parseJurusan(jurusan) : null;
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["itemjurusan", parsedJurusan?.id],
-    queryFn: () => getItemJurusan(parsedJurusan?.id as number),
-    enabled: !!parsedJurusan?.id,
-    retry: false,
-  });
+  // Using mock data instead of React Query
+  const { data, isLoading } = {
+    data: { data: mockVideoItems },
+    isLoading: false,
+  };
 
   const filteredItemJurusan = useMemo(() => {
-    if (!data?.data) return [];
-    return data.data.filter((j: SubJurusanResponseModel) =>
+    if (!data?.data || !parsedJurusan?.id) return [];
+    return data.data.filter((j: VideoItem) =>
+      j.id_jurusan === parsedJurusan.id && 
       j.nama.toLowerCase().includes(search.toLowerCase())
     );
-  }, [data?.data, search]);
-
-  if (isError) {
-    const err = error as { message: string };
-    return toast.error(err.message);
-  }
+  }, [data?.data, search, parsedJurusan?.id]);
 
   return (
     <div className="container mx-auto max-w-6xl px-4 md:px-8 py-12 min-h-[84.1dvh]">
@@ -94,8 +96,8 @@ function SubJurusanList() {
             <p className="text-xl font-semibold  mt-4">Data Kosong</p>
           </div>
         ) : (
-          filteredItemJurusan?.map((jurusan: SubJurusanResponseModel) => (
-            <div className="mb-4">
+          filteredItemJurusan?.map((jurusan: VideoItem) => (
+            <div className="mb-4" key={jurusan.id}>
               <div className=" relative w-full pb-[56.25%] h-0">
                 <LazyYoutube url={jurusan.youtube} title={jurusan.nama} />
               </div>
